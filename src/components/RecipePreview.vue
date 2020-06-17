@@ -3,7 +3,7 @@
     :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
     class="recipe-preview"
   >
-    <div class="recipe-body">
+    <!--     <div class="recipe-body">
       <img v-if="image_load" :src="recipe.image" class="recipe-image" />
     </div>
     <div class="recipe-footer">
@@ -14,7 +14,24 @@
         <li>{{ recipe.readyInMinutes }} minutes</li>
         <li>{{ recipe.aggregateLikes }} likes</li>
       </ul>
-    </div>
+    </div> -->
+
+    <b-card
+      :title="recipe.title"
+      :img-src="recipe.image"
+      img-top
+      tag="article"
+      style="max-whidth: 15rem;"
+      class="mb-2"
+    >
+      <b-card-text>
+        <li>{{ recipe.readyInMinutes }} minutes</li>
+        <li>{{ recipe.aggregateLikes }} likes</li>
+        <div>
+          
+        </div>
+      </b-card-text>
+    </b-card>
   </router-link>
 </template>
 
@@ -27,39 +44,15 @@ export default {
   },
   data() {
     return {
-      image_load: false
+      image_load: false,
     };
   },
   props: {
     recipe: {
       type: Object,
-      required: true
-    }
-
-    // id: {
-    //   type: Number,
-    //   required: true
-    // },
-    // title: {
-    //   type: String,
-    //   required: true
-    // },
-    // readyInMinutes: {
-    //   type: Number,
-    //   required: true
-    // },
-    // image: {
-    //   type: String,
-    //   required: true
-    // },
-    // aggregateLikes: {
-    //   type: Number,
-    //   required: false,
-    //   default() {
-    //     return undefined;
-    //   }
-    // }
-  }
+      required: true,
+    },
+  },
 };
 </script>
 
@@ -83,7 +76,7 @@ export default {
   margin-top: auto;
   margin-bottom: auto;
   display: block;
-  width: 98%;
+  width: 70%;
   height: auto;
   -webkit-background-size: cover;
   -moz-background-size: cover;
