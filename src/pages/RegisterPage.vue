@@ -25,6 +25,43 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
+
+      <b-form-group
+        id="input-group-firstName"
+        label-cols-sm="3"
+        label="First name:"
+        label-for="firstName"
+      >
+
+      <b-form-input
+          id="firstName"
+          v-model="$v.form.firstName.$model"
+          type="text"
+          :state="validateState('firstName')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.firstName.required">
+          First name is required
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-lastName"
+        label-cols-sm="3"
+        label="Last name:"
+        label-for="lastName"
+      >
+
+      <b-form-input
+          id="lastName"
+          v-model="$v.form.lastName.$model"
+          type="text"
+          :state="validateState('lastName')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.lastName.required">
+          Last name is required
+        </b-form-invalid-feedback>
+      </b-form-group>
+
       <b-form-group
         id="input-group-country"
         label-cols-sm="3"
@@ -64,7 +101,7 @@
         <b-form-invalid-feedback
           v-if="$v.form.password.required && !$v.form.password.length"
         >
-          Have length between 5-10 characters long
+          Have length between 5-10 characters long and at least one special char and one number.
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -87,6 +124,48 @@
           v-else-if="!$v.form.confirmedPassword.sameAsPassword"
         >
           The confirmed password is not equal to the original password
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+
+      <b-form-group
+        id="input-group-email"
+        label-cols-sm="3"
+        label="email:"
+        label-for="email"
+      >
+
+      <b-form-input
+          id="email"
+          v-model="$v.form.email.$model"
+          type="text"
+          :state="validateState('email')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.email.required">
+          First name is required
+        </b-form-invalid-feedback>
+        
+        <b-form-invalid-feedback v-if="!$v.form.email.email">
+          Incorrect email.
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+
+       <b-form-group
+        id="input-group-profilePicture"
+        label-cols-sm="3"
+        label="Profile picture:"
+        label-for="profilePicture"
+      >
+
+      <b-form-input
+          id="profilePicture"
+          v-model="$v.form.profilePicture.$model"
+          type="text"
+          :state="validateState('profilePicture')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.profilePicture.required">
+          Profile picture is required
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -156,6 +235,16 @@ export default {
         length: (u) => minLength(3)(u) && maxLength(8)(u),
         alpha
       },
+       firstName: {
+        required,
+        //length: (u) => minLength(3)(u) && maxLength(8)(u),
+       // alpha
+      },
+       lastName: {
+        required,
+        //length: (u) => minLength(3)(u) && maxLength(8)(u),
+        //alpha
+      },
       country: {
         required
       },
@@ -166,6 +255,16 @@ export default {
       confirmedPassword: {
         required,
         sameAsPassword: sameAs("password")
+      },
+       email: {
+        required,
+        //length: (u) => minLength(3)(u) && maxLength(8)(u),
+        email
+      },
+       profilePicture: {
+        //required
+        //length: (u) => minLength(3)(u) && maxLength(8)(u),
+       //url
       }
     }
   },
@@ -182,10 +281,18 @@ export default {
     async Register() {
       try {
         const response = await this.axios.post(
-          "https://test-for-3-2.herokuapp.com/user/Register",
+          //"https://test-for-3-2.herokuapp.com/user/Register",
+          //"https://assignment-3-2-yuval-adi.herokuapp.com/user/register",
+          this.$root.store.base_url + "/user/register",
           {
             username: this.form.username,
-            password: this.form.password
+            firstName: this.form.firstName,
+            lastName: this.form.lastName,
+            country: this.form.country,
+            password: this.form.password,
+            email: this.form.email,
+            profilePicture: this.form.profilePicture
+            
           }
         );
         this.$router.push("/login");
@@ -212,7 +319,8 @@ export default {
         country: null,
         password: "",
         confirmedPassword: "",
-        email: ""
+        email: "",
+        profilePicture:""
       };
       this.$nextTick(() => {
         this.$v.$reset();
