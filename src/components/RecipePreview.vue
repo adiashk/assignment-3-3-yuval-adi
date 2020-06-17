@@ -3,34 +3,49 @@
     :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
     class="recipe-preview"
   >
-    <!--     <div class="recipe-body">
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
-    </div>
-    <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
-      </div>
-      <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
-      </ul>
-    </div> -->
-
-    <b-card
-      :title="recipe.title"
-      :img-src="recipe.image"
-      img-top
-      tag="article"
-      style="max-whidth: 15rem;"
-      class="mb-2"
-    >
-      <b-card-text>
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
-        <div>
-          
-        </div>
-      </b-card-text>
+    <b-card no-body class="overflow-hidden" style="max-width: 540px;">
+      <b-row no-gutters>
+        <b-col md="6">
+          <b-card-img :src="recipe.image" class="rounded-0"></b-card-img>
+        </b-col>
+        <b-col md="6">
+          <b-card-body :title="recipe.title">
+            <b-card-text>
+              <li>{{ recipe.readyInMinutes }} minutes</li>
+              <li>{{ recipe.aggregateLikes }} likes</li>
+            </b-card-text>
+          </b-card-body>
+        </b-col>
+      </b-row>
+      <b-row no-gutters>
+        <b-col md="6">
+          <img
+            class="img-logo"
+            v-if="recipe.vegetarian"
+            src="../assets/vegetarian.png"
+          />
+          <img class="img-logo" v-if="recipe.vegan" src="../assets/vegan.jpg" />
+          <img
+            class="img-logo"
+            v-if="recipe.glutenFree"
+            src="../assets/glutenFree.png"
+          />
+          <span v-if="getIsWhatchedRecipes" style="color:red">
+            whatched before
+          </span>
+          <span v-else-if="!getIsWhatchedRecipes" style="color:green">
+            not whatched before
+          </span>
+        </b-col>
+        <b-col lg="4" class="pb-2">
+          <b-button v-if="!getIsFavoriteRecipe" variant="success" size="sm"
+            >add to favorites</b-button
+          >
+          <b-button v-else-if="getIsFavoriteRecipe" variant="danger" size="sm"
+            >remove from favorites</b-button
+          >
+        </b-col>
+      </b-row>
     </b-card>
   </router-link>
 </template>
@@ -45,6 +60,8 @@ export default {
   data() {
     return {
       image_load: false,
+      getIsWhatchedRecipes: false,
+      getIsFavoriteRecipe: false,
     };
   },
   props: {
@@ -130,5 +147,10 @@ export default {
   width: 90px;
   display: table-cell;
   text-align: center;
+}
+.img-logo {
+  bottom: 8px;
+  left: 0px;
+  width: 15%;
 }
 </style>
