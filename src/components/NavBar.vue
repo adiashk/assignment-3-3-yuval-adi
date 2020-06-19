@@ -6,9 +6,9 @@
     <router-link tag="b-navbar-item" :to="{ name: 'search' }"
       >Search</router-link
     >|
-    {{ !$root.store.username }}
+   
     <span v-if="!$root.store.username">
-      Guest:
+      Guest: 
       <router-link tag="b-navbar-item" :to="{ name: 'register' }"
         >Register</router-link
       >|
@@ -17,14 +17,50 @@
       >|
     </span>
     <span v-else>
-      {{ $root.store.username }}: <button @click="Logout">Logout</button>|
+       Hello {{ $root.store.username }}: 
+      <button @click="Logout">Logout</button>|
     </span>
   </b-navbar>
 </template>
 
 <script>
-export default {};
-</script>
+//import { required } from "vuelidate/lib/validators";
+export default {
+  name: "Logout",
+  data() {
+    return {
+      form: {
+        username: "",
+      }
+    };
+  },
+  methods: {
 
-<style>
+    async Logout() {
+      try {
+        const response = await this.axios.post(
+
+          this.$root.store.base_url + "/user/Logout",
+          {
+          }
+        );
+
+        console.log(this.$root.store.logout);
+         this.$root.store.login(this.form.username);
+        // this.$router.push("/");
+      } catch (err) {
+        console.log(err.response);
+        this.form.submitError = err.response.data.message;
+      }
+    },
+    onLogout() {
+      this.Logout();
+    }
+  }
+};
+</script>
+<style lang="scss" scoped>
+.container {
+  max-width: 400px;
+}
 </style>
