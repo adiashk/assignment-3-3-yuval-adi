@@ -3,34 +3,49 @@
     :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
     class="recipe-preview"
   >
-    <!--     <div class="recipe-body">
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
-    </div>
-    <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
-      </div>
-      <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
-      </ul>
-    </div> -->
-
-    <b-card
-      :title="recipe.title"
-      :img-src="recipe.image"
-      img-top
-      tag="article"
-      style="max-whidth: 15rem;"
-      class="mb-2"
-    >
-      <b-card-text>
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
-        <div>
-          
-        </div>
-      </b-card-text>
+    <b-card no-body class="overflow-hidden" style="max-width: 540px;">
+      <b-row no-gutters>
+        <b-col md="6">
+          <b-card-img :src="recipe.image" class="rounded-0"></b-card-img>
+        </b-col>
+        <b-col md="6">
+          <b-card-body :title="recipe.title">
+            <b-card-text>
+              <li>{{ recipe.readyInMinutes }} minutes</li>
+              <li>{{ recipe.aggregateLikes }} likes</li>
+            </b-card-text>
+          </b-card-body>
+        </b-col>
+      </b-row>
+      <b-row no-gutters>
+        <b-col md="6">
+          <img
+            class="img-logo"
+            v-if="recipe.vegetarian"
+            src="../assets/vegetarian.png"
+          />
+          <img class="img-logo" v-if="recipe.vegan" src="../assets/vegan.jpg" />
+          <img
+            class="img-logo"
+            v-if="recipe.glutenFree"
+            src="../assets/glutenFree.png"
+          />
+          <span v-if="isWhatchedRecipe" style="color:red">
+            whatched before
+          </span>
+          <span v-else-if="!isWhatchedRecipe" style="color:green">
+            not whatched before
+          </span>
+        </b-col>
+        <b-col lg="4" class="pb-2">
+          <b-button v-if="!isFavoriteRecipe" variant="success" size="sm"
+            >add to favorites</b-button
+          >
+          <b-button v-else-if="isFavoriteRecipe" variant="danger" size="sm"
+            >remove from favorites</b-button
+          >
+        </b-col>
+      </b-row>
     </b-card>
   </router-link>
 </template>
@@ -38,19 +53,68 @@
 <script>
 export default {
   mounted() {
-    this.axios.get(this.recipe.image).then((i) => {
+    /*     this.axios.get(this.recipe.image).then((i) => {
       this.image_load = true;
-    });
+    }); */
+    this.getIsWhatchedRecipe();
+    this.getIsFavoriteRecipe();
+  },
+  methods: {
+    async getIsWhatchedRecipe() {
+      try {
+        if (this.$root.store.username) {
+          const response = await this.axios.get(
+            this.$root.store.base_url + "/profile/getIsWhatchedRecipe",
+            {
+              params: { recipe_id: this.recipe.id },
+            }
+          );
+          // console.log("response=" + response.data + " id= " + this.recipe.id);
+          // console.log(response.data);
+          this.isWhatchedRecipe = response.data;
+          // console.log(this.isWhatchedRecipe);
+        } else this.isWhatchedRecipe = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getIsFavoriteRecipe() {
+      try {
+        if (this.$root.store.username) {
+          const response = await this.axios.get(
+            this.$root.store.base_url + "/profile/getIsFavoriteRecipe",
+            {
+              params: { recipe_id: this.recipe.id },
+            }
+          );
+          //  console.log(response.data);
+          this.isFavoriteRecipe = response.data;
+          // console.log(this.isFavoriteRecipe);
+        } else this.isFavoriteRecipe = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   data() {
     return {
-      image_load: false,
+      // image_load: false,
+      //  getIsWhatchedRecipes: false,
+      // getIsFavoriteRecipe: false,
     };
   },
   props: {
     recipe: {
       type: Object,
       required: true,
+    },
+    isWhatchedRecipe: {
+      type: Boolean,
+      required: false,
+    },
+    isFavoriteRecipe: {
+      type: Boolean,
+      required: false,
     },
   },
 };
@@ -69,7 +133,6 @@ export default {
   height: 200px;
   position: relative;
 }
-
 .recipe-preview .recipe-body .recipe-image {
   margin-left: auto;
   margin-right: auto;
@@ -82,13 +145,11 @@ export default {
   -moz-background-size: cover;
   background-size: cover;
 }
-
 .recipe-preview .recipe-footer {
   width: 100%;
   height: 50%;
   overflow: hidden;
 }
-
 .recipe-preview .recipe-footer .recipe-title {
   padding: 10px 10px;
   width: 100%;
@@ -99,7 +160,6 @@ export default {
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
-
 .recipe-preview .recipe-footer ul.recipe-overview {
   padding: 5px 10px;
   width: 100%;
@@ -118,7 +178,6 @@ export default {
   table-layout: fixed;
   margin-bottom: 0px;
 }
-
 .recipe-preview .recipe-footer ul.recipe-overview li {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
@@ -130,5 +189,10 @@ export default {
   width: 90px;
   display: table-cell;
   text-align: center;
+}
+.img-logo {
+  bottom: 8px;
+  left: 0px;
+  width: 15%;
 }
 </style>

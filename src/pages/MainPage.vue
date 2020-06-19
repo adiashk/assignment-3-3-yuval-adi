@@ -16,7 +16,7 @@
         <login-page></login-page>
       </b-col>
       <b-col v-else>
-        <RandomRecipePreviewList
+        <LastWatchedRecipePreviewList
           title="Last Viewed Recipes"
           :class="{
             RandomRecipes: true,
@@ -24,7 +24,7 @@
             center: true,
           }"
           disabled
-        ></RandomRecipePreviewList>
+        ></LastWatchedRecipePreviewList>
       </b-col>
     </b-row>
 
@@ -41,10 +41,12 @@
 
 <script>
 import RandomRecipePreviewList from "../components/RandomRecipePreviewList";
+import LastWatchedRecipePreviewList from "../components/LastWatchedRecipePreviewList";
 import LoginPage from "../pages/LoginPage";
 export default {
   components: {
     RandomRecipePreviewList,
+    LastWatchedRecipePreviewList,
     LoginPage,
   },
 };
