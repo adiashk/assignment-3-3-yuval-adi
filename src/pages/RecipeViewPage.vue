@@ -56,13 +56,13 @@ export default {
       try {
         response = await this.axios.get(
           /* "https://test-for-3-2.herokuapp.com/recipes/info", */
-          //this.$root.store.base_url + "/recipes/displayFullRecipe",
+          this.$root.store.base_url + "/recipes/displayFullRecipe",
           {
-            params: { id: this.$route.params.recipeId },
+            params: { recipe_id: this.recipe.id },
           }
         );
 
-        // console.log("response.status", response.status);
+        console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
         console.log("error.response.status", error.response.status);
@@ -70,6 +70,7 @@ export default {
         return;
       }
 
+      console.log(response.data);
       let {
         analyzedInstructions,
         instructions,
@@ -78,7 +79,7 @@ export default {
         readyInMinutes,
         image,
         title,
-      } = response.data.recipe;
+      } = response.data;
 
       let _instructions = analyzedInstructions
         .map((fstep) => {

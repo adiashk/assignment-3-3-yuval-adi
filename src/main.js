@@ -61,6 +61,7 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+axios.defaults.withCredentials = true;
 
 Vue.use(VueAxios, axios);
 
