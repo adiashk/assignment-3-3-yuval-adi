@@ -30,11 +30,11 @@
             v-if="recipe.glutenFree"
             src="../assets/glutenFree.png"
           />
-          <span v-if="isWhatchedRecipe" style="color:red">
-            whatched before
+          <span v-if="isWatchedRecipe" style="color:red">
+            watched before
           </span>
-          <span v-else-if="!isWhatchedRecipe" style="color:green">
-            not whatched before
+          <span v-else-if="!isWatchedRecipe" style="color:green">
+            not watched before
           </span>
         </b-col>
         <b-col lg="4" class="pb-2">
@@ -56,24 +56,24 @@ export default {
     /*     this.axios.get(this.recipe.image).then((i) => {
       this.image_load = true;
     }); */
-    this.getIsWhatchedRecipe();
+    this.getIsWatchedRecipe();
     this.getIsFavoriteRecipe();
   },
   methods: {
-    async getIsWhatchedRecipe() {
+    async getIsWatchedRecipe() {
       try {
         if (this.$root.store.username) {
           const response = await this.axios.get(
-            this.$root.store.base_url + "/profile/getIsWhatchedRecipe",
+            this.$root.store.base_url + "/profile/getIsWatchedRecipe",
             {
               params: { recipe_id: this.recipe.id },
             }
           );
           // console.log("response=" + response.data + " id= " + this.recipe.id);
           // console.log(response.data);
-          this.isWhatchedRecipe = response.data;
+          this.isWatchedRecipe = response.data;
           // console.log(this.isWhatchedRecipe);
-        } else this.isWhatchedRecipe = false;
+        } else this.isWatchedRecipe = false;
       } catch (error) {
         console.log(error);
       }
@@ -108,7 +108,7 @@ export default {
       type: Object,
       required: true,
     },
-    isWhatchedRecipe: {
+    isWatchedRecipe: {
       type: Boolean,
       required: false,
     },

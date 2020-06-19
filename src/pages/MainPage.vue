@@ -18,16 +18,16 @@
       <b-col v-else>
         <LastWatchedRecipePreviewList
           title="Last Viewed Recipes"
-          :class="{
+          class="LastWatchedRecipes center"
+        ></LastWatchedRecipePreviewList>
+      </b-col>
+    </b-row>
+    <!--           :class="{
             RandomRecipes: true,
             blur: !$root.store.username,
             center: true,
           }"
-          disabled
-        ></LastWatchedRecipePreviewList>
-      </b-col>
-    </b-row>
-
+          disabled -->
     <!--     <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
     {{ !$root.store.username }} -->
 
@@ -54,6 +54,9 @@ export default {
 
 <style lang="scss" scoped>
 .RandomRecipes {
+  margin: 10px 0 10px;
+}
+.LastWatchedRecipes {
   margin: 10px 0 10px;
 }
 .blur {
