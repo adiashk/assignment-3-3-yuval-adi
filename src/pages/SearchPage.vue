@@ -7,8 +7,8 @@
                 placeholder="Enter search query"
                 required
         />
-        <button @click="search">search</button>
-
+        
+        <b-button @click="search">search</b-button>
         <b-form-group label="Number of results:">
             <b-form-radio-group
                     v-model="selectedNum"
@@ -50,34 +50,77 @@
 </template>
 
 <script>
-    import RecipePreview from "../components/RecipePreview";
+   //<b-button href="#" variant="primary" v-on:click="search()"> search</b-button>
+   import RecipePreview from "../components/RecipePreview";
+   console.log("in 1");
     export default {
         components: {
             RecipePreview
+           
         },
         data() {
             return {
+                name: "SearchPage",
                 showDismissibleAlert:false,
                 selectedCuisine: null,
                 optionsCuisine: [
                     { value: null, text: 'Please select an cuisine' },
-                    { value: 'Italian', text: 'Italian' },
-                    { value: 'Spanish', text: 'Spanish' },
+                    { value: 'African', text: 'African' },
+                    { value: 'American', text: 'American' },
+                    { value: 'British', text: 'British' },
+                    { value: 'Cajun', text: 'Cajun' },
+                    { value: 'Caribbean', text: 'Caribbean' },
+                    { value: 'Chinese', text: 'Chinese' },
+                    { value: 'Eastern European', text: 'Eastern European' },
+                    { value: 'European', text: 'European' },
                     { value: 'French', text: 'French' },
+                    { value: 'German', text: 'German' },
+                    { value: 'Greek', text: 'Greek' },
+                    { value: 'Indian', text: 'Indian' },
+                    { value: 'Irish', text: 'Irish' },
+                    { value: 'Italian', text: 'Italian' },
+                    { value: 'Japanese', text: 'Japanese' },
+                    { value: 'Jewish', text: 'Jewish' },
+                    { value: 'Korean', text: 'Korean' },
+                    { value: 'Latin American', text: 'Latin American' },
+                    { value: 'Mediterranean', text: 'Mediterranean' },
+                    { value: 'Mexican', text: 'Mexican' },
+                    { value: 'Middle Eastern', text: 'Middle Eastern' },
+                    { value: 'Nordic', text: 'Nordic' },
+                    { value: 'Southern', text: 'Southern' },
+                    { value: 'Spanish', text: 'Spanish' },
+                    { value: 'Thai', text: 'Thai' },
+                    { value: 'Vietnamese', text: 'Vietnamese' },
                 ],
                 selectedDiet: null,
                 optionsDiet: [
                     { value: null, text: 'Please select an diet' },
-                    { value: 'Vegetarian', text: 'Vegetarian' },
-                    { value: 'Vegan', text: 'Vegan' },
                     { value: 'Gluten Free', text: 'Gluten Free' },
+                    { value: 'Ketogenic', text: 'Ketogenic' },
+                    { value: 'Vegetarian', text: 'Vegetarian' },
+                    { value: 'Lacto-Vegetarian', text: 'Lacto-Vegetarian' },
+                    { value: 'Ovo-Vegetarian', text: 'Ovo-Vegetarian' },
+                    { value: 'Vegan', text: 'Vegan' },
+                    { value: 'Pescetarian', text: 'Pescetarian' },
+                    { value: 'Paleo', text: 'Paleo' },
+                    { value: 'Primal', text: 'Primal' },
+                    { value: 'Whole30', text: 'Whole30' },
                 ],
                 selectedIntolerance: null,
                 optionsIntolerance: [
                     { value: null, text: 'Please select an intolerance' },
                     { value: 'Dairy', text: 'Dairy' },
                     { value: 'Egg', text: 'Egg' },
+                    { value: 'Gluten', text: 'Gluten' },
+                    { value: 'Grain', text: 'Grain' },
                     { value: 'Peanut', text: 'Peanut' },
+                    { value: 'Seafood', text: 'Seafood' },
+                    { value: 'Sesame', text: 'Sesame' },
+                    { value: 'Shellfish', text: 'Shellfish' },
+                    { value: 'Soy', text: 'Soy' },
+                    { value: 'Sulfite', text: 'Sulfite' },
+                    { value: 'Tree nut', text: 'Tree nut' },
+                    { value: 'Wheat', text: 'Wheat' },
                 ],
                 selectedNum: '5',
                 optionsNum: [
@@ -86,31 +129,42 @@
                     { text: '15', value: '15' }
                 ],
                 recipes: [],
-                searchQuery:""
+                searchQuery:"",
+                recipesLoaded:false,
+                clickedSearch:false
             };
         },
         mounted(){
             this.updateLastSearch();
+            console.log("in 2");
         },
         methods:{
-            async search(){
-                let queryParams={};
-                if(this.selectedCuisine!=null) queryParams.cuisine=this.selectedCuisine;
-                if(this.selectedDiet!=null) queryParams.diet=this.selectedDiet;
-                if(this.selectedIntolerance!=null) queryParams.intolerance=this.selectedIntolerance;
-                if(this.selectedNum!=null) queryParams.number=this.selectedNum;
-               
+            search:{async search(){
+                console.log("in 3");
+                this.clickedSearch=true;
+                let query={};
+                if(this.selectedCuisine!=null) query.cuisine=this.selectedCuisine;
+                if(this.selectedDiet!=null) query.diet=this.selectedDiet;
+                if(this.selectedIntolerance!=null) query.intolerances=this.selectedIntolerance;
+                if(this.selectedNum!=null)query.number=this.selectedNum;
+                else{query.number=5;}
+                console.log("in 4");
                 let response = await this.axios.get(
-                   /*"http://localhost:3000/recipes/search/"*/ this.$root.store.base_url+"/recipes/search/" +this.searchQuery,  
+                    this.$root.store.base_url + "/recipes/search", 
                     {
-                        params: queryParams
+                        params: {query},                       
                     }
                 );
+                console.log("in 5");
                 if(response.data.message){
                     this.showDismissibleAlert=true;
                     this.recipes=[];
                 }
+                
                 else{
+
+                    console.log("in !!!!");
+                    /*
                     this.showDismissibleAlert=false;
                     this.recipes = [];
                     if(window.$cookies.isKey('session'))
@@ -121,7 +175,7 @@
                         });
                         ids = ids.substring(0, ids.length - 1) + "]";
                         const infos = await this.axios.get(
-                        "http://localhost:3000/users/userRecipeInfo/" + ids
+                        this.$root.store.base_url+"/user/userRecipeInfo/" + ids
                         );
                         response.data.forEach(recipe => {
                         for (const [key, value] of Object.entries(infos.data)) {
@@ -133,10 +187,14 @@
                         });
                     }
                     this.recipes.push(...response.data);
+                    */
                 }
-                if(this.$store.username!="")
+                if(this.$Store.username!="")
                     this.$store.lastSearch=this.recipes;
+
+                this.recipesLoaded=true;
             },
+            /*
             sortByMakingTime(){
                 this.recipes.sort((a,b)=>{
                     return a.readyInMinutes-b.readyInMinutes;
@@ -148,10 +206,16 @@
                 })
             },
             updateLastSearch(){
-                if(this.$store.username!="")
+                if(this.$Store.username!="")
+                {
                     this.recipes=this.$store.lastSearch;
+                    this.recipesLoaded=true;
+                }
             }
+            */
         }
+    
+    }
     };
 </script>
 

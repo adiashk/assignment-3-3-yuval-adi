@@ -58,11 +58,11 @@ export default {
           /* "https://test-for-3-2.herokuapp.com/recipes/info", */
           this.$root.store.base_url + "/recipes/displayFullRecipe",
           {
-            params: { recipe_id: this.recipe.id },
+            params: { id: this.$route.params.recipeId },
           }
         );
 
-        console.log("response.status", response.status);
+        // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
         console.log("error.response.status", error.response.status);
@@ -70,7 +70,6 @@ export default {
         return;
       }
 
-      console.log(response.data);
       let {
         analyzedInstructions,
         instructions,
@@ -79,7 +78,7 @@ export default {
         readyInMinutes,
         image,
         title,
-      } = response.data;
+      } = response.data.recipe;
 
       let _instructions = analyzedInstructions
         .map((fstep) => {
