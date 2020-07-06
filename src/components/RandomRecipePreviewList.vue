@@ -25,12 +25,10 @@ export default {
           this.$root.store.base_url + "/recipes/random"
         );
 
-        console.log(response);
+        // console.log(response);
         const recipes = response.data.randRecipes;
-        console.log("res=" + response.data.randRecipes);
-
         this.recipes.push(...recipes);
-        console.log(this.recipes);
+        // console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }

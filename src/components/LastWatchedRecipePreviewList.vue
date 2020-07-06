@@ -23,10 +23,9 @@ export default {
           this.$root.store.base_url + "/profile/get3WatchedRecipes"
         );
 
-        console.log("res=" + response);
         const recipes = response.data.recipes;
         this.recipes.push(...recipes);
-        console.log(this.recipes);
+        //console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
