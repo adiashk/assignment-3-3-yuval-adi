@@ -12,31 +12,28 @@
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
               <div>Likes: {{ recipe.aggregateLikes }} likes</div>
             </div>
+
             Ingredients:
-            <ul>
-              <li
-                v-for="(r, index) in recipe.extendedIngredients"
-                :key="index + '_' + r.id"
-              >
-                {{ r.original }}
-              </li>
+            <ul v-for="(r, index) in recipe.ingridients" :key="index">
+              {{
+                index + 1
+              }}
+              :
+              {{
+                r
+              }}
             </ul>
           </div>
           <div class="wrapped">
             Instructions:
             <ol>
-              <li v-for="s in recipe._instructions" :key="s.number">
-                {{ s.step }}
+              <li v-for="(s, index) in recipe.instructions" :key="index">
+                {{ recipe.instructions[index] }}
               </li>
             </ol>
           </div>
         </div>
       </div>
-      <!-- <pre>
-      {{ $route.params }}
-      {{ recipe }}
-    </pre
-      > -->
     </div>
   </div>
 </template>
@@ -49,50 +46,39 @@ export default {
     };
   },
   async created() {
-    try {
-      let response;
-      // response = this.$route.params.response;
+    let recipe_id = this.$route.params.recipeId;
 
+    try {
+      let addToWatched;
+      let response;
       try {
         response = await this.axios.get(
-          /* "https://test-for-3-2.herokuapp.com/recipes/info", */
           this.$root.store.base_url + "/recipes/displayFullRecipe",
           {
-            params: { recipe_id: this.recipe.id },
+            params: { recipe_id },
           }
         );
 
-        console.log("response.status", response.status);
+        //console.log(response);
+        // console.log("response.status: ", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
-        console.log("error.response.status", error.response.status);
+        console.log("error.response.status: ", error.response.status);
         this.$router.replace("/NotFound");
         return;
       }
-
-      console.log(response.data);
       let {
-        analyzedInstructions,
         instructions,
-        extendedIngredients,
+        ingridients,
         aggregateLikes,
         readyInMinutes,
         image,
         title,
-      } = response.data;
-
-      let _instructions = analyzedInstructions
-        .map((fstep) => {
-          fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-          return fstep.steps;
-        })
-        .reduce((a, b) => [...a, ...b], []);
+      } = response.data.data;
 
       let _recipe = {
         instructions,
-        _instructions,
-        analyzedInstructions,
-        extendedIngredients,
+        ingridients,
         aggregateLikes,
         readyInMinutes,
         image,
@@ -100,10 +86,48 @@ export default {
       };
 
       this.recipe = _recipe;
+      console.log(this.recipe);
+    } catch (error) {
+      console.log(error);
+    }
+
+    try {
+      if (this.$root.store.username) {
+        console.log(recipe_id);
+
+        addToWatched = await this.axios.post(
+          this.$root.store.base_url + "/profile/addToWatchedRecipes",
+          {
+            params: { recipe_id },
+          }
+        );
+        console.log(addToLastWatched);
+      }
     } catch (error) {
       console.log(error);
     }
   },
+  /*   mounted() {
+  //  this.addWatchedRecipe();
+    //this.getIsFavoriteRecipe();
+  }, */
+  /*   methods: {
+    async addWatchedRecipe() {
+      try {
+        // if (this.$root.store.username) {
+        const response = await this.axios.post(
+          this.$root.store.base_url + "/profile/addToWatchedRecipes",
+          {
+            params: { recipe_id: this.$route.params.recipeId },
+          }
+        );
+        console.log(response.status);
+        //   }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  }, */
 };
 </script>
 

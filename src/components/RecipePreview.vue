@@ -30,6 +30,10 @@
             v-if="recipe.glutenFree"
             src="../assets/glutenFree.png"
           />
+        </b-col>
+      </b-row>
+      <b-row no-gutters v-if="$root.store.username">
+        <b-col lg="4" class="pb-2">
           <span v-if="isWatchedRecipe" style="color:red">
             watched before
           </span>
@@ -37,6 +41,7 @@
             not watched before
           </span>
         </b-col>
+
         <b-col lg="4" class="pb-2">
           <b-button v-if="!isFavoriteRecipe" variant="success" size="sm"
             >add to favorites</b-button
@@ -111,10 +116,17 @@ export default {
     isWatchedRecipe: {
       type: Boolean,
       required: false,
+      required: false,
+      default() {
+        return false;
+      },
     },
     isFavoriteRecipe: {
       type: Boolean,
       required: false,
+      default() {
+        return false;
+      },
     },
   },
 };
