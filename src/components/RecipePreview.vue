@@ -1,58 +1,68 @@
 <template>
-  <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-    class="recipe-preview"
-  >
-    <b-card no-body class="overflow-hidden" style="max-width: 540px;">
-      <b-row no-gutters>
-        <b-col md="6">
-          <b-card-img :src="recipe.image" class="rounded-0"></b-card-img>
-        </b-col>
-        <b-col md="6">
-          <b-card-body :title="recipe.title">
-            <b-card-text>
-              <li>{{ recipe.readyInMinutes }} minutes</li>
-              <li>{{ recipe.aggregateLikes }} likes</li>
-            </b-card-text>
-          </b-card-body>
-        </b-col>
-      </b-row>
-      <b-row no-gutters>
-        <b-col md="6">
-          <img
-            class="img-logo"
-            v-if="recipe.vegetarian"
-            src="../assets/vegetarian.png"
-          />
-          <img class="img-logo" v-if="recipe.vegan" src="../assets/vegan.jpg" />
-          <img
-            class="img-logo"
-            v-if="recipe.glutenFree"
-            src="../assets/glutenFree.png"
-          />
-        </b-col>
-      </b-row>
-      <b-row no-gutters v-if="$root.store.username">
-        <b-col lg="4" class="pb-2">
-          <span v-if="isWatchedRecipe" style="color:red">
-            watched before
-          </span>
-          <span v-else-if="!isWatchedRecipe" style="color:green">
-            not watched before
-          </span>
-        </b-col>
+  <b-card class="overflow-hidden" style="max-width: 540px;">
+    <router-link
+      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+      class="recipe-preview"
+    >
+      <b-card-body>
+        <b-row no-gutters>
+          <b-col md="6">
+            <b-card-img :src="recipe.image" class="rounded-0"></b-card-img>
+          </b-col>
+          <b-col md="6">
+            <b-card-body :title="recipe.title">
+              <b-card-text>
+                <li>{{ recipe.readyInMinutes }} minutes</li>
+                <li>{{ recipe.aggregateLikes }} likes</li>
+              </b-card-text>
+            </b-card-body>
+          </b-col>
+        </b-row>
+        <b-row no-gutters>
+          <b-col md="6">
+            <img
+              class="img-logo"
+              v-if="recipe.vegetarian"
+              src="../assets/vegetarian.png"
+            />
+            <img
+              class="img-logo"
+              v-if="recipe.vegan"
+              src="../assets/vegan.jpg"
+            />
+            <img
+              class="img-logo"
+              v-if="recipe.glutenFree"
+              src="../assets/glutenFree.png"
+            />
+          </b-col>
+        </b-row>
+      </b-card-body>
+    </router-link>
 
-        <b-col lg="4" class="pb-2">
-          <b-button v-if="!isFavoriteRecipe" variant="success" size="sm"
-            >add to favorites</b-button
-          >
-          <b-button v-else-if="isFavoriteRecipe" variant="danger" size="sm"
-            >remove from favorites</b-button
-          >
-        </b-col>
-      </b-row>
-    </b-card>
-  </router-link>
+    <b-row no-gutters v-if="$root.store.username">
+      <b-col lg="4" class="pb-2">
+        <span v-if="isWatchedRecipe" style="color:red">
+          watched before
+        </span>
+        <span v-else-if="!isWatchedRecipe" style="color:green">
+          not watched before
+        </span>
+      </b-col>
+      <b-col lg="4" class="pb-2">
+        <b-button
+          v-if="!isFavoriteRecipe"
+          @click="addFavoritesRecipes"
+          variant="success"
+          size="sm"
+          >add to favorites</b-button
+        >
+        <b-button v-else-if="isFavoriteRecipe" variant="danger" size="sm"
+          >favorite recipe</b-button
+        >
+      </b-col>
+    </b-row>
+  </b-card>
 </template>
 
 <script>
@@ -96,6 +106,21 @@ export default {
           this.isFavoriteRecipe = response.data;
           // console.log(this.isFavoriteRecipe);
         } else this.isFavoriteRecipe = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async addFavoritesRecipes() {
+      try {
+        if (this.$root.store.username) {
+          const response = await this.axios.post(
+            this.$root.store.base_url + "/profile/addFavoritesRecipes",
+            {
+              params: { recipe_id: this.recipe.id },
+            }
+          );
+          this.isFavoriteRecipe = true;
+        }
       } catch (error) {
         console.log(error);
       }
