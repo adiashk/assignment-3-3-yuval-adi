@@ -1,4 +1,5 @@
 <template>
+<div class="search_container">
   <div class="container">
     <h1 class="title">Search Page</h1>
     <input
@@ -45,18 +46,25 @@
                 :key="r.id"
         />
 
+    </div>
+
+    <RecipePreviewList title="Searched Recipes result" :recipes="recipes" />
+
+
 
   </div>
 </template>
 
 <script>
    //<b-button href="#" variant="primary" v-on:click="search()"> search</b-button>
-   import RecipePreview from "../components/RecipePreview";
+   //import RecipePreview from "../components/RecipePreview";
+   import RecipePreviewList from "../components/RecipePreviewList";
+
    console.log("in 1");
     export default {
         components: {
-            RecipePreview
-           
+           // RecipePreview,
+            RecipePreviewList         
         },
         data() {
             return {
@@ -64,7 +72,7 @@
                 showDismissibleAlert:false,
                 selectedCuisine: null,
                 optionsCuisine: [
-                    { value: null, text: 'Please select an cuisine' },
+                    { value: null, text: 'Please select a cuisine' },
                     { value: 'African', text: 'African' },
                     { value: 'American', text: 'American' },
                     { value: 'British', text: 'British' },
@@ -94,7 +102,7 @@
                 ],
                 selectedDiet: null,
                 optionsDiet: [
-                    { value: null, text: 'Please select an diet' },
+                    { value: null, text: 'Please select a diet' },
                     { value: 'Gluten Free', text: 'Gluten Free' },
                     { value: 'Ketogenic', text: 'Ketogenic' },
                     { value: 'Vegetarian', text: 'Vegetarian' },
@@ -153,7 +161,7 @@
                 //let intolerances = "";
                 if(this.selectedIntolerance!=null) query.intolerances=this.selectedIntolerance;
                 //let number = 5;
-                query.number=this.selectedNum;
+                query.number=this.selectedNum.value;
                 
                 console.log("in 4");
                 const response = await this.axios.get(
@@ -162,8 +170,10 @@
                         params: {query: query.query, cuisine: query.cuisine, diet: query.diet, intolerances: query.intolerances,number: query.number },                       
                     }
                 );
-                console.log("in 5");
-                if(response.data.message){
+                
+                console.log(response.data);
+                if(response.data==null){
+                    console.log("in 5");
                     this.showDismissibleAlert=true;
                     this.recipes=[];
                 }
@@ -171,9 +181,13 @@
                 else{
 
                     console.log("in !!!!");
+                    
                     this.showDismissibleAlert=false;
-                    const recipes = response.data;
-                    this.recipes.push(...recipes);
+                    //const recipes = response.data;
+                    //this.recipes.push(...recipes);
+                    this.recipes = response.data.recipes;
+                     this.recipes.push(...recipes);
+                    console.log(recipes);
                 }
                 if(this.$Store.username!="")
                     this.$store.lastSearch=this.recipes;
