@@ -12,6 +12,8 @@ const router = new VueRouter({
 
 import { FormRadioPlugin } from 'bootstrap-vue'
 Vue.use(FormRadioPlugin)
+import { BFormSelect } from 'bootstrap-vue'
+Vue.component('b-form-select', BFormSelect)
 
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";

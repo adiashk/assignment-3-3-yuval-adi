@@ -122,11 +122,11 @@
                     { value: 'Tree nut', text: 'Tree nut' },
                     { value: 'Wheat', text: 'Wheat' },
                 ],
-                selectedNum: '5',
+                selectedNum: 5,
                 optionsNum: [
-                    { text: '5', value: '5' },
-                    { text: '10', value: '10' },
-                    { text: '15', value: '15' }
+                    {  value: 5 ,text: '5' },
+                    {  value: 10 ,text: '10' },
+                    {  value: 15 , text: '15'}
                 ],
                 recipes: [],
                 searchQuery:"",
@@ -135,24 +135,31 @@
             };
         },
         mounted(){
-            this.updateLastSearch();
+            //this.updateLastSearch();
             console.log("in 2");
         },
         methods:{
-            search:{async search(){
+            async search(){
                 console.log("in 3");
                 this.clickedSearch=true;
                 let query={};
+                
+                if(this.searchQuery!="") query.query=this.searchQuery;
+                //let cuisine="";
+                console.log(this.selectedCuisine);
                 if(this.selectedCuisine!=null) query.cuisine=this.selectedCuisine;
+                //let diet ="";
                 if(this.selectedDiet!=null) query.diet=this.selectedDiet;
+                //let intolerances = "";
                 if(this.selectedIntolerance!=null) query.intolerances=this.selectedIntolerance;
-                if(this.selectedNum!=null)query.number=this.selectedNum;
-                else{query.number=5;}
+                //let number = 5;
+                query.number=this.selectedNum;
+                
                 console.log("in 4");
-                let response = await this.axios.get(
+                const response = await this.axios.get(
                     this.$root.store.base_url + "/recipes/search", 
                     {
-                        params: {query},                       
+                        params: {query: query.query, cuisine: query.cuisine, diet: query.diet, intolerances: query.intolerances,number: query.number },                       
                     }
                 );
                 console.log("in 5");
@@ -164,30 +171,9 @@
                 else{
 
                     console.log("in !!!!");
-                    /*
                     this.showDismissibleAlert=false;
-                    this.recipes = [];
-                    if(window.$cookies.isKey('session'))
-                    {
-                        let ids = "[";
-                        response.data.forEach(recipe => {
-                        ids = ids + recipe.id + ",";
-                        });
-                        ids = ids.substring(0, ids.length - 1) + "]";
-                        const infos = await this.axios.get(
-                        this.$root.store.base_url+"/user/userRecipeInfo/" + ids
-                        );
-                        response.data.forEach(recipe => {
-                        for (const [key, value] of Object.entries(infos.data)) {
-                            if (recipe.id == key) {
-                            recipe.watched = value.watched;
-                            recipe.inFavorites = value.inFavorites;
-                            }
-                        }
-                        });
-                    }
-                    this.recipes.push(...response.data);
-                    */
+                    const recipes = response.data;
+                    this.recipes.push(...recipes);
                 }
                 if(this.$Store.username!="")
                     this.$store.lastSearch=this.recipes;
@@ -213,7 +199,7 @@
                 }
             }
             */
-        }
+        
     
     }
     };
