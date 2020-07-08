@@ -8,37 +8,43 @@
       required
     />
 
-    <b-button @click="search">search</b-button>
-    <b-form-group label="Number of results:">
-      <b-form-radio-group
-        v-model="selectedNum"
-        :options="optionsNum"
-        name="radio-inline"
-      ></b-form-radio-group>
-    </b-form-group>
+    <b-form @submit.prevent="search">
+      <b-form-group id="number" label="Number of results:">
+        <b-form-radio-group
+          id="number_id"
+          :options="optionsNum"
+          v-model="selectedNum"
+          name="radio-inline"
+        ></b-form-radio-group>
+      </b-form-group>
 
-    <b-form-group label="cuisine:">
-      <b-form-select
-        v-model="selectedCuisine"
-        :options="optionsCuisine"
-      ></b-form-select>
-    </b-form-group>
-    <!-- <br /> -->
-    <b-form-group label="diet:">
-      <b-form-select
-        v-model="selectedDiet"
-        :options="optionsDiet"
-      ></b-form-select>
+      <b-form-group id="cuisine" label="cuisine:">
+        <b-form-select
+          id="cuisine_id"
+          :options="optionsCuisine"
+          v-model="selectedCuisine"
+        ></b-form-select>
+      </b-form-group>
       <!-- <br /> -->
-    </b-form-group>
-    <b-form-group label="Intolerance:">
-      <b-form-select
-        v-model="selectedIntolerance"
-        :options="optionsIntolerance"
-      ></b-form-select>
-    </b-form-group>
-    <button @click="sortByMakingTime">Sort by making time</button>
-    <button @click="sortByPopularity">Sort by popularity</button>
+      <b-form-group id="diet" label="diet:">
+        <b-form-select
+          id="diet_id"
+          :options="optionsDiet"
+          v-model="selectedDiet"
+        ></b-form-select>
+        <!-- <br /> -->
+      </b-form-group>
+      <b-form-group id="Intolerance" label="Intolerance:">
+        <b-form-select
+          id="Intolerance_id"
+          :options="optionsIntolerance"
+          v-model="selectedIntolerance"
+        ></b-form-select>
+      </b-form-group>
+
+      <b-button type="submit">search</b-button>
+    </b-form>
+
     <b-alert
       v-model="showDismissibleAlert"
       variant="warning"
@@ -67,6 +73,8 @@
 </template>
 
 <script>
+//button @click="sortByMakingTime">Sort by making time</button>
+//  <button @click="sortByPopularity">Sort by popularity</button>
 //import RecipePreview from "../components/RecipePreview";
 import RecipePreviewList from "../components/RecipePreviewList";
 
@@ -154,7 +162,7 @@ export default {
   },
   mounted() {
     //this.updateLastSearch();
-    this.search();
+    //this.search();
     console.log("in 2");
   },
   methods: {
@@ -167,10 +175,9 @@ export default {
         if (this.searchQuery != "") query.query = this.searchQuery;
         //let cuisine="";
         console.log(this.selectedCuisine);
-        if (this.selectedCuisine != null)
-          query.cuisine = this.selectedCuisine.value;
+        if (this.selectedCuisine != null) query.cuisine = this.selectedCuisine;
         //let diet ="";
-        if (this.selectedDiet != null) query.diet = this.selectedDiet.value;
+        if (this.selectedDiet != null) query.diet = this.selectedDiet;
         //let intolerances = "";
         if (this.selectedIntolerance != null)
           query.intolerances = this.selectedIntolerance.value;
