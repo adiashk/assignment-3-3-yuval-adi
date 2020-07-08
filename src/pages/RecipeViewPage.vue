@@ -93,12 +93,13 @@ export default {
 
     try {
       if (this.$root.store.username) {
+        console.log("recipe_id");
         console.log(recipe_id);
 
         addToWatched = await this.axios.post(
           this.$root.store.base_url + "/profile/addToWatchedRecipes",
           {
-            params: { recipe_id },
+            params: { recipe_id: recipe_id },
           }
         );
         console.log(addToLastWatched);

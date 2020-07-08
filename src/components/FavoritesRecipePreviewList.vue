@@ -1,26 +1,30 @@
 <template>
-  <b-container>
+  <!--   <b-container>
     <h3>{{ title }}:</h3>
     <b-row v-for="r in recipes" :key="r.id">
       <b-col>
         <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
-  </b-container>
+  </b-container> -->
+
+  <RecipePreviewList title="Last watched Recipes" :recipes="recipes" />
 </template>
 
 <script>
-import RecipePreview from "./RecipePreview.vue";
+//import RecipePreview from "./RecipePreview.vue";
+import RecipePreviewList from "./RecipePreviewList.vue";
 export default {
   components: {
-    RecipePreview,
+    //RecipePreview,\
+    RecipePreviewList,
   },
-  props: {
+  /*   props: {
     title: {
       type: String,
       required: true,
     },
-  },
+  }, */
   data() {
     return {
       recipes: [],
