@@ -2,27 +2,11 @@
   <div class="container">
     <h1 class="title">Search Page</h1>
     <input
-<<<<<<< HEAD
-                v-model="searchQuery"
-                type="text"
-                placeholder="Enter search query"
-                required
-        />
-        
-        <b-button @click="search">search</b-button>
-        <b-form-group label="Number of results:">
-            <b-form-radio-group
-                    v-model="selectedNum" :options="optionsNum"
-                    name="radio-inline"
-            ></b-form-radio-group>
-        </b-form-group>
-=======
       v-model="searchQuery"
       type="text"
       placeholder="Enter search query"
       required
     />
->>>>>>> ef1260dafea83563b153e2cf7705fad764e99cf7
 
     <b-button @click="search">search</b-button>
     <b-form-group label="Number of results:">

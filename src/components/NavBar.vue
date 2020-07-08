@@ -17,25 +17,22 @@
       >|
       
     </span>
-    <span v-else>
-      <span>
 
+    <span v-else>
+      
       <b-nav-item-dropdown id="Personal-dropdown" text="Personal" data-toggle="dropdown" aria-haspopup="true" right>
       <b-dropdown-item to="/Favorites">My Favorites</b-dropdown-item>
       <b-dropdown-item to="/Personal">My Recipes</b-dropdown-item>
       <b-dropdown-item to="/Family">My Family Recipes</b-dropdown-item>
     </b-nav-item-dropdown>
 
-      </span>|
-     
-      <span>
      
       <b-nav-item-dropdown id="Profile-dropdown" div :text="$root.store.username" data-toggle="dropdown" aria-haspopup="true" left>
       <b-dropdown-item to="/profile">Profile</b-dropdown-item>
       <b-dropdown-item-button @click="Logout">sign out</b-dropdown-item-button>
     </b-nav-item-dropdown>
 
-      </span>|
+
       
     </span>
   </b-navbar>
