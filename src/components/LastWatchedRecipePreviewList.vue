@@ -25,6 +25,8 @@ export default {
 
         const recipes = response.data.recipes;
         this.recipes.push(...recipes);
+        console.log(recipes);
+
         //console.log(this.recipes);
       } catch (error) {
         console.log(error);
