@@ -5,15 +5,19 @@ import axios from "axios";
 
 import routes from "./routes";
 import VueRouter from "vue-router";
+import VueCookies from "vue-cookies";
+
 Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
 });
 
-import { FormRadioPlugin } from 'bootstrap-vue'
-Vue.use(FormRadioPlugin)
-import { BFormSelect } from 'bootstrap-vue'
-Vue.component('b-form-select', BFormSelect)
+Vue.use(VueCookies);
+
+import { FormRadioPlugin } from "bootstrap-vue";
+Vue.use(FormRadioPlugin);
+import { BFormSelect } from "bootstrap-vue";
+Vue.component("b-form-select", BFormSelect);
 
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
@@ -73,7 +77,8 @@ Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 
 const shared_data = {
-  base_url: "https://assignment-3-2-yuval-adi.herokuapp.com",
+  //base_url: "https://assignment-3-2-yuval-adi.herokuapp.com",
+  base_url: "http://localhost:3000",
   username: localStorage.username,
   login(username) {
     localStorage.setItem("username", username);

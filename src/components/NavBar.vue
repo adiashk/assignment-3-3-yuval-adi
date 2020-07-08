@@ -6,6 +6,13 @@
     <router-link tag="b-navbar-item" :to="{ name: 'search' }"
       >Search</router-link
     >|
+
+    <b-nav-item-dropdown>
+      <b-dropdown-item to="/Favorites">My Favorites</b-dropdown-item>
+      <b-dropdown-item to="/Personal">My Recipes</b-dropdown-item>
+      <b-dropdown-item to="/Family">My Family Recipes</b-dropdown-item>
+    </b-nav-item-dropdown>
+
     <router-link tag="b-navbar-item" :to="{ name: 'Favorites' }"
       >Favorites</router-link
     >|
