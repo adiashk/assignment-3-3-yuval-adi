@@ -12,8 +12,7 @@
         <b-button @click="search">search</b-button>
         <b-form-group label="Number of results:">
             <b-form-radio-group
-                    v-model="selectedNum"
-                    :options="optionsNum"
+                    v-model="selectedNum" :options="optionsNum"
                     name="radio-inline"
             ></b-form-radio-group>
         </b-form-group>
