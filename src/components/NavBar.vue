@@ -19,20 +19,23 @@
     </span>
 
     <span v-else>
+      <b-navbar-nav>
+      <b-icon align="bottom" shift-v="-10.3" icon="person-fill" ></b-icon>
       
-      <b-nav-item-dropdown id="Personal-dropdown" text="Personal" data-toggle="dropdown" aria-haspopup="true" right>
+      <b-nav-item-dropdown id="Personal-dropdown" text="Personal"  data-toggle="dropdown" aria-haspopup="true" right>
       <b-dropdown-item to="/Favorites">My Favorites</b-dropdown-item>
       <b-dropdown-item to="/Personal">My Recipes</b-dropdown-item>
       <b-dropdown-item to="/Family">My Family Recipes</b-dropdown-item>
     </b-nav-item-dropdown>
 
+    
      
-      <b-nav-item-dropdown id="Profile-dropdown" div :text="$root.store.username" data-toggle="dropdown" aria-haspopup="true" left>
+      <b-nav-item-dropdown id="Profile-dropdown" div :text="$root.store.username" data-toggle="dropdown" aria-haspopup="true" style="right:0">
       <b-dropdown-item to="/profile">Profile</b-dropdown-item>
       <b-dropdown-item-button @click="Logout">sign out</b-dropdown-item-button>
     </b-nav-item-dropdown>
 
-
+</b-navbar-nav>
       
     </span>
   </b-navbar>
