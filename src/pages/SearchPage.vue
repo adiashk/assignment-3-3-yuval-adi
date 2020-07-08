@@ -18,12 +18,16 @@
             ></b-form-radio-group>
         </b-form-group>
 
-         <b-form-group label="Filter categories:">
-            <b-form-select label="Street:" class="w-25" v-model="selectedCuisine" :options="optionsCuisine"></b-form-select>
+         <b-form-group label="cuisine:">
+            <b-form-select v-model="selectedCuisine" :options="optionsCuisine"></b-form-select>
+         </b-form-group>
             <!-- <br /> -->
-            <b-form-select class="w-25" v-model="selectedDiet" :options="optionsDiet"></b-form-select>
+        <b-form-group label="diet:">
+            <b-form-select  v-model="selectedDiet" :options="optionsDiet"></b-form-select>
             <!-- <br /> -->
-            <b-form-select class="w-25" v-model="selectedIntolerance" :options="optionsIntolerance"></b-form-select>
+         </b-form-group>
+         <b-form-group label="Intolerance:">
+            <b-form-select  v-model="selectedIntolerance" :options="optionsIntolerance"></b-form-select>
         </b-form-group>
         <button @click="sortByMakingTime">Sort by making time</button>
         <button @click="sortByPopularity">Sort by popularity</button>
@@ -56,7 +60,6 @@
 </template>
 
 <script>
-   //<b-button href="#" variant="primary" v-on:click="search()"> search</b-button>
    //import RecipePreview from "../components/RecipePreview";
    import RecipePreviewList from "../components/RecipePreviewList";
 
@@ -68,7 +71,7 @@
         },
         data() {
             return {
-                name: "SearchPage",
+                name: "Search",
                 showDismissibleAlert:false,
                 selectedCuisine: null,
                 optionsCuisine: [
@@ -130,11 +133,11 @@
                     { value: 'Tree nut', text: 'Tree nut' },
                     { value: 'Wheat', text: 'Wheat' },
                 ],
-                selectedNum: 5,
+                selectedNum: '5',
                 optionsNum: [
-                    {  value: 5 ,text: '5' },
-                    {  value: 10 ,text: '10' },
-                    {  value: 15 , text: '15'}
+                    {  value: '5' ,text: '5' },
+                    {  value: '10' ,text: '10' },
+                    {  value: '15' , text: '15'}
                 ],
                 recipes: [],
                 searchQuery:"",
@@ -144,6 +147,7 @@
         },
         mounted(){
             //this.updateLastSearch();
+             this.search();
             console.log("in 2");
         },
         methods:{
@@ -155,23 +159,23 @@
                 if(this.searchQuery!="") query.query=this.searchQuery;
                 //let cuisine="";
                 console.log(this.selectedCuisine);
-                if(this.selectedCuisine!=null) query.cuisine=this.selectedCuisine;
+                if(this.selectedCuisine!=null) query.cuisine=this.selectedCuisine.value;
                 //let diet ="";
-                if(this.selectedDiet!=null) query.diet=this.selectedDiet;
+                if(this.selectedDiet!=null) query.diet=this.selectedDiet.value;
                 //let intolerances = "";
-                if(this.selectedIntolerance!=null) query.intolerances=this.selectedIntolerance;
+                if(this.selectedIntolerance!=null) query.intolerances=this.selectedIntolerance.value;
                 //let number = 5;
-                query.number=this.selectedNum.value;
+                query.number=this.selectedNum;
                 
-                console.log("in 4");
+                console.log("query.number"+ this.selectedNum);
                 const response = await this.axios.get(
                     this.$root.store.base_url + "/recipes/search", 
                     {
-                        params: {query: query.query, cuisine: query.cuisine, diet: query.diet, intolerances: query.intolerances,number: query.number },                       
+                        params: {query: query.query, cuisine: query.cuisine, diet: query.diet, intolerances: query.intolerance,number: this.selectedNum },                       
                     }
                 );
                 
-                console.log(response.data);
+                console.log(response.data.data);
                 if(response.data==null){
                     console.log("in 5");
                     this.showDismissibleAlert=true;
@@ -181,16 +185,16 @@
                 else{
 
                     console.log("in !!!!");
-                    
+                    console.log(response.data.data);
                     this.showDismissibleAlert=false;
                     //const recipes = response.data;
                     //this.recipes.push(...recipes);
-                    this.recipes = response.data.recipes;
+                    const recipes = response.data.data;
                      this.recipes.push(...recipes);
                     console.log(recipes);
                 }
-                if(this.$Store.username!="")
-                    this.$store.lastSearch=this.recipes;
+               // if(this.$root.store.username!="")
+                 //   this.$store.lastSearch=this.recipes;
 
                 this.recipesLoaded=true;
             },
