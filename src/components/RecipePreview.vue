@@ -1,5 +1,29 @@
 <template>
-  <b-card class="overflow-hidden" style="max-width: 540px;">
+  <RecipePreviewMin :recipe="recipe">
+    <b-row no-gutters v-if="$root.store.username">
+      <b-col lg="4" class="pb-2">
+        <span v-if="isWatchedRecipe" style="color:red">
+          watched before
+        </span>
+        <span v-else-if="!isWatchedRecipe" style="color:green">
+          not watched before
+        </span>
+      </b-col>
+      <b-col lg="4" class="pb-2">
+        <b-button
+          v-if="!isFavoriteRecipe"
+          @click="addFavoritesRecipes"
+          variant="success"
+          size="sm"
+          >add to favorites</b-button
+        >
+        <b-button v-else-if="isFavoriteRecipe" variant="danger" size="sm"
+          >favorite recipe</b-button
+        >
+      </b-col>
+    </b-row>
+  </RecipePreviewMin>
+  <!-- <b-card class="overflow-hidden" style="max-width: 540px;">
     <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
       class="recipe-preview"
@@ -62,11 +86,15 @@
         >
       </b-col>
     </b-row>
-  </b-card>
+  </b-card> -->
 </template>
 
 <script>
+import RecipePreviewMin from "./RecipePreviewMin";
 export default {
+  components: {
+    RecipePreviewMin,
+  },
   mounted() {
     /*     this.axios.get(this.recipe.image).then((i) => {
       this.image_load = true;
@@ -116,10 +144,17 @@ export default {
       try {
         if (this.$root.store.username) {
           const response = await this.axios.post(
-            this.$root.store.base_url + "/profile/addFavoritesRecipes",
+            this.$root.store.base_url + "/profile/addFavoritesRecipes ",
+            {
+              recipe_id: this.recipe.id,
+            }
+            // { data: {}, query: { recipe_id: this.recipe.id } }
+            /*             {
+              data: {},
+            },
             {
               params: { recipe_id: this.recipe.id },
-            }
+            } */
           );
 
           this.isFavoriteRecipe = true;
@@ -131,9 +166,7 @@ export default {
   },
   data() {
     return {
-      // image_load: false,
-      //  getIsWhatchedRecipes: false,
-      // getIsFavoriteRecipe: false,
+      isWatchedRecipe_data: this.isWatchedRecipe,
     };
   },
   props: {

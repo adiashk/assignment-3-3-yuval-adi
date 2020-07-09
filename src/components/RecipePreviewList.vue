@@ -1,4 +1,4 @@
-<template>
+`<template>
   <b-container>
     <h3>{{ title }}:</h3>
     <b-row v-for="r in recipes" :key="r.id">
