@@ -80,6 +80,8 @@ const shared_data = {
   //base_url: "https://assignment-3-2-yuval-adi.herokuapp.com",
   base_url: "http://localhost:3000",
   username: localStorage.username,
+  lastSearch: localStorage.lastSearch,
+
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
