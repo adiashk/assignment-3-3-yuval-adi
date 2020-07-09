@@ -45,40 +45,34 @@
       <b-button type="submit">search</b-button>
     </b-form>
 
+    <button @click="sortByHighPopularity">Sort by high popularity</button>
+    <button @click="sortByLowPopularity">Sort by low popularity</button>
+    <button @click="sortByHighPreparationgTime">
+      Sort by high preparation time
+    </button>
+    <button @click="sortByLowPreparationgTime">
+      Sort by low preparation time
+    </button>
+
+    <RecipePreviewList title="Searched Recipes result" :recipes="recipes" />
+
     <b-alert
       v-model="showDismissibleAlert"
       variant="warning"
       dismissible
       style="text-align:center"
     >
-      No recipes found for the inserted query
+      Sorry, No recipes found.
     </b-alert>
-
-    <!--         <RecipePreview style="float:left;"
-                v-for="r in recipes"
-                :id="r.id"
-                :title="r.title"
-                :ready-in-minutes="r.readyInMinutes"
-                :image="r.image"
-                :aggregate-likes="r.aggregateLikes"
-                :vegetarian="r.vegetarian"
-                :vegan="r.vegan"
-                :gluten-free="r.glutenFree"
-                :inFavorites="r.inFavorites"
-                :watched="r.watched"
-                :key="r.id"
-        /> -->
-    <RecipePreviewList title="Searched Recipes result" :recipes="recipes" />
   </div>
 </template>
 
 <script>
 //button @click="sortByMakingTime">Sort by making time</button>
 //  <button @click="sortByPopularity">Sort by popularity</button>
-//import RecipePreview from "../components/RecipePreview";
+
 import RecipePreviewList from "../components/RecipePreviewList";
 
-console.log("in 1");
 export default {
   components: {
     //RecipePreview,
@@ -158,33 +152,31 @@ export default {
       searchQuery: "",
       recipesLoaded: false,
       clickedSearch: false,
+
+      form: {
+        submitError: undefined,
+      },
     };
   },
   mounted() {
-    //this.updateLastSearch();
-    //this.search();
-    console.log("in 2");
+    this.updateLastSearch();
   },
   methods: {
-    async search() {
+    async searchQ() {
       try {
-        console.log("in 3");
-        this.clickedSearch = true;
         let query = {};
 
         if (this.searchQuery != "") query.query = this.searchQuery;
-        //let cuisine="";
-        console.log(this.selectedCuisine);
+
         if (this.selectedCuisine != null) query.cuisine = this.selectedCuisine;
-        //let diet ="";
+
         if (this.selectedDiet != null) query.diet = this.selectedDiet;
-        //let intolerances = "";
+
         if (this.selectedIntolerance != null)
           query.intolerances = this.selectedIntolerance.value;
-        //let number = 5;
+
         query.number = this.selectedNum;
 
-        console.log("query.number" + this.selectedNum);
         const response = await this.axios.get(
           this.$root.store.base_url + "/recipes/search",
           {
@@ -193,54 +185,70 @@ export default {
               cuisine: query.cuisine,
               diet: query.diet,
               intolerances: query.intolerance,
-              number: this.selectedNum,
+              number: query.number,
             },
           }
         );
 
-        console.log(response.data.data);
-        /*         if (response.data == null) {
-          console.log("in 5");
-          this.showDismissibleAlert = true;
-          this.recipes = [];
-        } else { */
-        console.log("in !!!!");
-        console.log(response.data.data);
-        this.showDismissibleAlert = false;
-        //const recipes = response.data;
-        //this.recipes.push(...recipes);
-        const recipes = response.data.data;
+        this.recipes = []; //empty stuck
 
-        this.recipes.push(...recipes);
-        console.log(recipes);
-        //}
-        // if(this.$root.store.username!="")
-        //   this.$store.lastSearch=this.recipes;
+        if (response.status !== 200) this.$router.replace("/NotFound");
+        else {
+          console.log("in search");
+          this.showDismissibleAlert = false;
+
+          const recipes = response.data.data;
+
+          this.recipes.push(...recipes);
+        }
+        if (this.$root.store.username != "") {
+          console.log("last");
+          this.$root.store.lastSearch = this.recipes;
+        }
 
         this.recipesLoaded = true;
       } catch (error) {
         console.log(error);
+        this.showDismissibleAlert = true;
+        this.recipes = [];
+        this.form.submitError = undefined;
+        return;
       }
     },
-    /*
-            sortByMakingTime(){
-                this.recipes.sort((a,b)=>{
-                    return a.readyInMinutes-b.readyInMinutes;
-                })
-            },
-            sortByPopularity(){
-                this.recipes.sort((a,b)=>{
-                    return b.aggregateLikes-a.aggregateLikes;
-                })
-            },
-            updateLastSearch(){
-                if(this.$Store.username!="")
-                {
-                    this.recipes=this.$store.lastSearch;
-                    this.recipesLoaded=true;
-                }
-            }
-            */
+    search() {
+      this.form.submitError = undefined;
+      this.searchQ();
+    },
+
+    sortByHighPopularity() {
+      this.recipes.sort(function(b, a) {
+        return parseFloat(a.aggregateLikes) - parseFloat(b.aggregateLikes);
+      });
+    },
+    sortByLowPopularity() {
+      this.recipes.sort(function(a, b) {
+        return parseFloat(a.aggregateLikes) - parseFloat(b.aggregateLikes);
+      });
+    },
+
+    sortByHighPreparationgTime() {
+      this.recipes.sort(function(b, a) {
+        return parseFloat(a.readyInMinutes) - parseFloat(b.readyInMinutes);
+      });
+    },
+
+    sortByLowPreparationgTime() {
+      this.recipes.sort(function(a, b) {
+        return parseFloat(a.readyInMinutes) - parseFloat(b.readyInMinutes);
+      });
+    },
+
+    updateLastSearch() {
+      if (this.$root.store.username != "") {
+        this.recipes = this.$root.store.lastSearch;
+        this.recipesLoaded = true;
+      }
+    },
   },
 };
 </script>
