@@ -39,7 +39,6 @@
         </b-row>
       </b-card-body>
     </router-link>
-    <slot />
   </b-card>
 </template>
 

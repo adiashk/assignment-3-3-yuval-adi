@@ -1,12 +1,13 @@
 <template>
-  <RecipePreviewList title="Last watched Recipes" :recipes="recipes" />
+  <RecipePreviewPersonal title="personal Recipes" :recipes="recipes" />
 </template>
 
 <script>
-import RecipePreviewList from "./RecipePreviewList.vue";
+import RecipePreviewPersonal from "./RecipePreviewPersonal.vue";
 export default {
+  //name: "RandomRecipePreviewList",
   components: {
-    RecipePreviewList,
+    RecipePreviewPersonal,
   },
   data() {
     return {
@@ -14,18 +15,19 @@ export default {
     };
   },
   mounted() {
-    this.getFavoritesRecipes();
+    this.updateRecipes();
   },
   methods: {
-    async getFavoritesRecipes() {
+    async updateRecipes() {
       try {
         const response = await this.axios.get(
           this.$root.store.base_url + "/profile/getMyRecipes"
         );
 
-        const recipes = response.data.recipes;
+        // console.log(response);
+        const recipes = response.data.personalRecipes;
         this.recipes.push(...recipes);
-        //console.log(this.recipes);
+        // console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
@@ -34,4 +36,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.container {
+  min-height: 400px;
+}
+</style>

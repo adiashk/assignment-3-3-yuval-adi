@@ -1,7 +1,7 @@
 <template>
   <div>
     <PersonalRecipePreviewList
-      title="Family Recipes"
+      title="personal Recipes"
       class="RandomRecipes center"
     />
   </div>

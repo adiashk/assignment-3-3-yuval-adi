@@ -3,7 +3,7 @@
     <h3>{{ title }}:</h3>
     <b-row v-for="r in recipes" :key="r.id">
       <b-col>
-        <RecipePreview class="recipePreview" :recipe="r" />
+        <RecipePreviewPersonal class="PersonalRecipePreview" :recipe="r" />
       </b-col>
     </b-row>
     <b-button href="#" variant="primary" v-on:click="refresh()">
@@ -13,11 +13,10 @@
 </template>
 
 <script>
-import RecipePreview from "./RecipePreview.vue";
+import RecipePreviewPersonal from "./RecipePreviewPersonal.vue";
 export default {
-  name: "RecipePreviewList",
   components: {
-    RecipePreview,
+    RecipePreviewPersonal,
   },
   props: {
     title: {
@@ -37,8 +36,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.container {
-  min-height: 400px;
-}
-</style>
+<style></style>
