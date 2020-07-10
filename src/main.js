@@ -117,3 +117,20 @@ new Vue({
   },
   render: (h) => h(App),
 }).$mount("#app");
+
+router.beforeEach((to, from, next) => {
+  // if there was a transition from logged in to session expired or localStorage was deleted
+  // if we try to enter auth required pages and we are not authorized
+  if (shared_data.username === undefined || !Vue.$cookies.get("session")) {
+    if (
+      (shared_data.username === undefined && Vue.$cookies.get("session")) ||
+      (shared_data.username !== undefined && !Vue.$cookies.get("session"))
+    ) {
+      shared_data.logout();
+    }
+    // if the route requires Authorization, (and we know the user is not authorized), we redirect to login page
+    if (to.matched.some((route) => route.meta.requiresAuth)) {
+      next({ name: "main" });
+    } else next();
+  } else next();
+});

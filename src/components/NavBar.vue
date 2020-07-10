@@ -1,48 +1,55 @@
 <template>
-
   <b-navbar type="dark" variant="info">
     <router-link tag="b-navbar-brand" :to="{ name: 'main' }"
       >Vue Recipes</router-link
     >|
-    <router-link tag="b-navbar-item" :to="{ name: 'search' }"
+    <router-link tag="b-navbar-brand" :to="{ name: 'search' }"
       >Search</router-link
     >|
 
     <span v-if="!$root.store.username">
-      <router-link tag="b-navbar-item" :to="{ name: 'register' }"
+      <router-link tag="b-navbar-brand" :to="{ name: 'register' }"
         >Register</router-link
       >|
-      <router-link tag="b-navbar-item" :to="{ name: 'login' }"
+      <router-link tag="b-navbar-brand" :to="{ name: 'login' }"
         >Login</router-link
       >|
-      
     </span>
 
     <span v-else>
       <b-navbar-nav>
-      <b-icon align="bottom" shift-v="-10.3" icon="person-fill" ></b-icon>
-      
-      <b-nav-item-dropdown id="Personal-dropdown" text="Personal"  data-toggle="dropdown" aria-haspopup="true" right>
-      <b-dropdown-item to="/Favorites">My Favorites</b-dropdown-item>
-      <b-dropdown-item to="/Personal">My Recipes</b-dropdown-item>
-      <b-dropdown-item to="/Family">My Family Recipes</b-dropdown-item>
-    </b-nav-item-dropdown>
+        <b-nav-item-dropdown
+          id="Personal-dropdown"
+          text="Personal"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          right
+        >
+          <b-dropdown-item to="/Favorites">My Favorites</b-dropdown-item>
+          <b-dropdown-item to="/Personal">My Recipes</b-dropdown-item>
+          <b-dropdown-item to="/Family">My Family Recipes</b-dropdown-item>
+        </b-nav-item-dropdown>
 
-    
-     
-      <b-nav-item-dropdown id="Profile-dropdown" div :text="$root.store.username" data-toggle="dropdown" aria-haspopup="true" style="right:0">
-      <b-dropdown-item to="/profile">Profile</b-dropdown-item>
-      <b-dropdown-item-button @click="Logout">sign out</b-dropdown-item-button>
-    </b-nav-item-dropdown>
-
-</b-navbar-nav>
-      
+        <b-nav-item-dropdown
+          id="Profile-dropdown"
+          div
+          :text="$root.store.username"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          style="right:0"
+        >
+          <b-dropdown-item to="/profile">Profile</b-dropdown-item>
+          <b-dropdown-item-button @click="Logout"
+            >sign out</b-dropdown-item-button
+          >
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
     </span>
   </b-navbar>
 </template>
 
 <script>
-// <button @click="Logout">Logout</button>|
+// <b-icon align="bottom" shift-v="-10.3" icon="person-fill" ></b-icon>
 //import { required } from "vuelidate/lib/validators";
 export default {
   name: "Logout",
