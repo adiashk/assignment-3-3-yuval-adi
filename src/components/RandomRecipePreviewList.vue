@@ -24,7 +24,7 @@ export default {
         );
         const recipes = response.data.randRecipes;
         this.recipes.push(...recipes);
-        // console.log(this.recipes);
+        console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }

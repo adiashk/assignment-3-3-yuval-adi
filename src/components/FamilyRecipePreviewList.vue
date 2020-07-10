@@ -3,17 +3,17 @@
     <h3>{{ title }}:</h3>
     <b-row v-for="r in recipes" :key="r.id">
       <b-col>
-        <RecipePreview class="recipePreview" :recipe="r" />
+        <RecipePreviewFamilyList class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import RecipePreview from "./RecipePreview.vue";
+import RecipePreviewFamilyList from "./RecipePreviewFamilyList.vue";
 export default {
   components: {
-    RecipePreview,
+    RecipePreviewFamilyList,
   },
   props: {
     title: {
@@ -35,10 +35,10 @@ export default {
         const response = await this.axios.get(
           this.$root.store.base_url + "/profile/getFamilyRecipes"
         );
-
-        const recipes = response.data.recipes;
+        console.log(response);
+        const recipes = response.data.familyRecipes;
         this.recipes.push(...recipes);
-        //console.log(this.recipes);
+        console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }

@@ -14,6 +14,9 @@
               <b-card-text>
                 <li>{{ recipe.readyInMinutes }} minutes</li>
                 <li>{{ recipe.aggregateLikes }} likes</li>
+                <li>{{ recipe.servings }} servings</li>
+                <li>{{ recipe.whoPrepare }} whoPrepare</li>
+                <li>{{ recipe.whenPrepare }} whenPrepare</li>
               </b-card-text>
             </b-card-body>
           </b-col>
@@ -44,6 +47,7 @@
 
 <script>
 export default {
+  methods: {},
   data() {
     return {};
   },
