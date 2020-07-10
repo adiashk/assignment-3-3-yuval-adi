@@ -1,12 +1,13 @@
 <template>
-  <b-container>
+  <!--   <b-container>
     <h3>{{ title }}:</h3>
     <b-row v-for="r in recipes" :key="r.id">
       <b-col>
         <RecipePreviewFamilyList class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
-  </b-container>
+  </b-container> -->
+  <RecipePreviewFamilyList title="Family Recipes" :recipes="recipes" />
 </template>
 
 <script>
@@ -27,10 +28,10 @@ export default {
     };
   },
   mounted() {
-    this.getFavoritesRecipes();
+    this.getFamilyRecipes();
   },
   methods: {
-    async getFavoritesRecipes() {
+    async getFamilyRecipes() {
       try {
         const response = await this.axios.get(
           this.$root.store.base_url + "/profile/getFamilyRecipes"

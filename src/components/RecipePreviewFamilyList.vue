@@ -15,7 +15,6 @@
 <script>
 import RecipePreviewFamily from "./RecipePreviewFamily.vue";
 export default {
-  name: "RecipePreviewFamily",
   components: {
     RecipePreviewFamily,
   },
