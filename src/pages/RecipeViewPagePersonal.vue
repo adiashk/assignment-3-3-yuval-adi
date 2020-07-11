@@ -14,13 +14,20 @@
             </div>
 
             Ingredients:
-            <ul v-for="(r, index) in recipe.ingridients" :key="index">
+            <ul v-for="(r, index) in recipe.ingredients" :key="index">
               {{
                 index + 1
               }}
               :
               {{
-                r
+                r.ingredient_name
+              }}
+              -
+              {{
+                r.amount
+              }}
+              {{
+                r.unit
               }}
             </ul>
           </div>
@@ -28,7 +35,7 @@
             Instructions:
             <ol>
               <li v-for="(s, index) in recipe.instructions" :key="index">
-                {{ recipe.instructions[index] }}
+                {{ recipe.instructions[index].step_description }}
               </li>
             </ol>
           </div>
@@ -69,16 +76,16 @@ export default {
       }
       let {
         instructions,
-        ingridients,
+        ingredients,
         aggregateLikes,
         readyInMinutes,
         image,
         title,
-      } = response.data.recipe;
+      } = response.data.data;
 
       let _recipe = {
         instructions,
-        ingridients,
+        ingredients,
         aggregateLikes,
         readyInMinutes,
         image,
@@ -87,6 +94,7 @@ export default {
 
       this.recipe = _recipe;
       console.log(this.recipe);
+      console.log(_recipe.ingridients);
     } catch (error) {
       console.log(error);
     }

@@ -59,7 +59,7 @@ export default {
           }
         );
 
-        //console.log(response);
+        console.log(response);
         // console.log("response.status: ", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {

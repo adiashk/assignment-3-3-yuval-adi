@@ -1,7 +1,7 @@
 <template>
   <b-card class="overflow-hidden" style="max-width: 540px;">
     <router-link
-      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+      :to="{ name: 'PersonalRecipe', params: { recipeId: recipe.id } }"
       class="recipe-preview"
     >
       <b-card-body>

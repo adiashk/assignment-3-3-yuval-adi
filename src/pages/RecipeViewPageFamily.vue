@@ -14,13 +14,20 @@
             </div>
 
             Ingredients:
-            <ul v-for="(r, index) in recipe.ingridients" :key="index">
+            <ul v-for="(r, index) in recipe.ingredients" :key="index">
               {{
                 index + 1
               }}
               :
               {{
-                r
+                r.ingredient_name
+              }}
+              -
+              {{
+                r.amount
+              }}
+              {{
+                r.unit
               }}
             </ul>
           </div>
@@ -28,7 +35,7 @@
             Instructions:
             <ol>
               <li v-for="(s, index) in recipe.instructions" :key="index">
-                {{ recipe.instructions[index] }}
+                {{ recipe.instructions[index].step_description }}
               </li>
             </ol>
           </div>
@@ -53,7 +60,7 @@ export default {
       let response;
       try {
         response = await this.axios.get(
-          this.$root.store.base_url + "/recipes/displayFullRecipe",
+          this.$root.store.base_url + "/profile/getFullFamilyRecipe",
           {
             params: { recipe_id },
           }
@@ -69,7 +76,7 @@ export default {
       }
       let {
         instructions,
-        ingridients,
+        ingredients,
         aggregateLikes,
         readyInMinutes,
         image,
@@ -78,7 +85,7 @@ export default {
 
       let _recipe = {
         instructions,
-        ingridients,
+        ingredients,
         aggregateLikes,
         readyInMinutes,
         image,
