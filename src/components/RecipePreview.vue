@@ -115,8 +115,8 @@ export default {
       }
     },
     async addFavoritesRecipes() {
-      console.log("add fav");
-      console.log(this.recipe.id);
+      // console.log("add fav");
+      // console.log(this.recipe.id);
       try {
         if (this.$root.store.username) {
           const response = await this.axios.post(
@@ -124,13 +124,6 @@ export default {
             {
               recipe_id: this.recipe.id,
             }
-            // { data: {}, query: { recipe_id: this.recipe.id } }
-            /*             {
-              data: {},
-            },
-            {
-              params: { recipe_id: this.recipe.id },
-            } */
           );
 
           this.isFavoriteRecipe = true;

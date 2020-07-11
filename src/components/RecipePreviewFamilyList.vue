@@ -6,16 +6,12 @@
         <RecipePreviewFamily class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
-    <b-button href="#" variant="primary" v-on:click="refresh()">
-      refresh
-    </b-button>
   </b-container>
 </template>
 
 <script>
 import RecipePreviewFamily from "./RecipePreviewFamily.vue";
 export default {
-  name: "RecipePreviewFamily",
   components: {
     RecipePreviewFamily,
   },
@@ -27,11 +23,6 @@ export default {
     recipes: {
       type: Array,
       required: true,
-    },
-  },
-  methods: {
-    refresh: function(msg) {
-      window.location.reload();
     },
   },
 };

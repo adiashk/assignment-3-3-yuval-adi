@@ -4,20 +4,6 @@
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
         <img :src="recipe.image" class="center" />
-        <b-row no-gutters v-if="$root.store.username">
-          <b-col lg="4" class="pb-2">
-            <b-button
-              v-if="!isFavoriteRecipe"
-              @click="addFavoritesRecipes"
-              variant="success"
-              size="sm"
-              >add to favorites</b-button
-            >
-            <b-button v-else-if="isFavoriteRecipe" variant="danger" size="sm"
-              >favorite recipe</b-button
-            >
-          </b-col>
-        </b-row>
       </div>
       <div class="recipe-body">
         <div class="wrapper">
@@ -28,13 +14,20 @@
             </div>
 
             Ingredients:
-            <ul v-for="(r, index) in recipe.ingridients" :key="index">
+            <ul v-for="(r, index) in recipe.ingredients" :key="index">
               {{
                 index + 1
               }}
               :
               {{
-                r
+                r.ingredient_name
+              }}
+              -
+              {{
+                r.amount
+              }}
+              {{
+                r.unit
               }}
             </ul>
           </div>
@@ -42,7 +35,7 @@
             Instructions:
             <ol>
               <li v-for="(s, index) in recipe.instructions" :key="index">
-                {{ recipe.instructions[index] }}
+                {{ recipe.instructions[index].step_description }}
               </li>
             </ol>
           </div>
@@ -67,13 +60,13 @@ export default {
       let response;
       try {
         response = await this.axios.get(
-          this.$root.store.base_url + "/recipes/displayFullRecipe",
+          this.$root.store.base_url + "/profile/getFullFamilyRecipe",
           {
             params: { recipe_id },
           }
         );
 
-        console.log(response);
+        //console.log(response);
         // console.log("response.status: ", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
@@ -83,7 +76,7 @@ export default {
       }
       let {
         instructions,
-        ingridients,
+        ingredients,
         aggregateLikes,
         readyInMinutes,
         image,
@@ -92,7 +85,7 @@ export default {
 
       let _recipe = {
         instructions,
-        ingridients,
+        ingredients,
         aggregateLikes,
         readyInMinutes,
         image,
@@ -122,51 +115,27 @@ export default {
       console.log(error);
     }
   },
-  mounted() {
-    this.getIsFavoriteRecipe();
-  },
-  methods: {
-    async getIsFavoriteRecipe() {
+  /*   mounted() {
+  //  this.addWatchedRecipe();
+    //this.getIsFavoriteRecipe();
+  }, */
+  /*   methods: {
+    async addWatchedRecipe() {
       try {
-        if (this.$root.store.username) {
-          const response = await this.axios.get(
-            this.$root.store.base_url + "/profile/getIsFavoriteRecipe",
-            {
-              params: { recipe_id: this.$route.params.recipeId },
-            }
-          );
-          this.isFavoriteRecipe = response.data;
-        } else this.isFavoriteRecipe = false;
+        // if (this.$root.store.username) {
+        const response = await this.axios.post(
+          this.$root.store.base_url + "/profile/addToWatchedRecipes",
+          {
+            params: { recipe_id: this.$route.params.recipeId },
+          }
+        );
+        console.log(response.status);
+        //   }
       } catch (error) {
         console.log(error);
       }
     },
-    async addFavoritesRecipes() {
-      try {
-        if (this.$root.store.username) {
-          const response = await this.axios.post(
-            this.$root.store.base_url + "/profile/addFavoritesRecipes ",
-            {
-              recipe_id: this.$route.params.recipeId,
-            }
-          );
-
-          this.isFavoriteRecipe = true;
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
-  },
-  props: {
-    isFavoriteRecipe: {
-      type: Boolean,
-      required: false,
-      default() {
-        return false;
-      },
-    },
-  },
+  }, */
 };
 </script>
 

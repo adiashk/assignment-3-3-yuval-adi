@@ -1,13 +1,13 @@
 <template>
-  <RecipePreviewPersonal title="personal Recipes" :recipes="recipes" />
+  <RecipePreviewPersonalList title="personal Recipes" :recipes="recipes" />
 </template>
 
 <script>
-import RecipePreviewPersonal from "./RecipePreviewPersonal.vue";
+import RecipePreviewPersonalList from "./RecipePreviewPersonalList.vue";
 export default {
   //name: "RandomRecipePreviewList",
   components: {
-    RecipePreviewPersonal,
+    RecipePreviewPersonalList,
   },
   data() {
     return {

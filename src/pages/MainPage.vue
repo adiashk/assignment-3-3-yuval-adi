@@ -36,6 +36,9 @@
     >
       Centeredasdasdad
     </div>-->
+    <b-button href="#" variant="primary" v-on:click="refresh()">
+      refresh
+    </b-button>
   </b-container>
 </template>
 
@@ -48,6 +51,11 @@ export default {
     RandomRecipePreviewList,
     LastWatchedRecipePreviewList,
     LoginPage,
+  },
+  methods: {
+    refresh: function(msg) {
+      window.location.reload();
+    },
   },
 };
 </script>

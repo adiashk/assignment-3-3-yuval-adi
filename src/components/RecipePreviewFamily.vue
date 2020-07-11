@@ -1,7 +1,7 @@
 <template>
   <b-card class="overflow-hidden" style="max-width: 540px;">
     <router-link
-      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+      :to="{ name: 'FamilyRecipe', params: { recipeId: recipe.id } }"
       class="recipe-preview"
     >
       <b-card-body>
@@ -15,8 +15,8 @@
                 <li>{{ recipe.readyInMinutes }} minutes</li>
                 <li>{{ recipe.aggregateLikes }} likes</li>
                 <li>{{ recipe.servings }} servings</li>
-                <li>{{ recipe.whoPrepare }} whoPrepare</li>
-                <li>{{ recipe.whenPrepare }} whenPrepare</li>
+                <li>prepared by {{ recipe.whoPrepare }}</li>
+                <li>prepared at {{ recipe.whenPrepare }}</li>
               </b-card-text>
             </b-card-body>
           </b-col>
@@ -47,7 +47,6 @@
 
 <script>
 export default {
-  methods: {},
   data() {
     return {};
   },

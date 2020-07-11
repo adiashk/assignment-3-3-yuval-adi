@@ -6,9 +6,6 @@
         <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
-    <b-button href="#" variant="primary" v-on:click="refresh()">
-      refresh
-    </b-button>
   </b-container>
 </template>
 
@@ -27,11 +24,6 @@ export default {
     recipes: {
       type: Array,
       required: true,
-    },
-  },
-  methods: {
-    refresh: function(msg) {
-      window.location.reload();
     },
   },
 };
