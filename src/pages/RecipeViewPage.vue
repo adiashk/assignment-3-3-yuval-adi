@@ -4,6 +4,20 @@
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
         <img :src="recipe.image" class="center" />
+        <b-row no-gutters v-if="$root.store.username">
+          <b-col lg="4" class="pb-2">
+            <b-button
+              v-if="!isFavoriteRecipe"
+              @click="addFavoritesRecipes"
+              variant="success"
+              size="sm"
+              >add to favorites</b-button
+            >
+            <b-button v-else-if="isFavoriteRecipe" variant="danger" size="sm"
+              >favorite recipe</b-button
+            >
+          </b-col>
+        </b-row>
       </div>
       <div class="recipe-body">
         <div class="wrapper">
@@ -108,27 +122,51 @@ export default {
       console.log(error);
     }
   },
-  /*   mounted() {
-  //  this.addWatchedRecipe();
-    //this.getIsFavoriteRecipe();
-  }, */
-  /*   methods: {
-    async addWatchedRecipe() {
+  mounted() {
+    this.getIsFavoriteRecipe();
+  },
+  methods: {
+    async getIsFavoriteRecipe() {
       try {
-        // if (this.$root.store.username) {
-        const response = await this.axios.post(
-          this.$root.store.base_url + "/profile/addToWatchedRecipes",
-          {
-            params: { recipe_id: this.$route.params.recipeId },
-          }
-        );
-        console.log(response.status);
-        //   }
+        if (this.$root.store.username) {
+          const response = await this.axios.get(
+            this.$root.store.base_url + "/profile/getIsFavoriteRecipe",
+            {
+              params: { recipe_id: this.$route.params.recipeId },
+            }
+          );
+          this.isFavoriteRecipe = response.data;
+        } else this.isFavoriteRecipe = false;
       } catch (error) {
         console.log(error);
       }
     },
-  }, */
+    async addFavoritesRecipes() {
+      try {
+        if (this.$root.store.username) {
+          const response = await this.axios.post(
+            this.$root.store.base_url + "/profile/addFavoritesRecipes ",
+            {
+              recipe_id: this.$route.params.recipeId,
+            }
+          );
+
+          this.isFavoriteRecipe = true;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  props: {
+    isFavoriteRecipe: {
+      type: Boolean,
+      required: false,
+      default() {
+        return false;
+      },
+    },
+  },
 };
 </script>
 

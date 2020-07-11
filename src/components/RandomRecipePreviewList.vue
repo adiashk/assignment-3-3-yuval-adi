@@ -1,5 +1,5 @@
 <template>
-  <RecipePreviewList title="Random Recipes" :recipes="recipes" />
+  <RecipePreviewList title="Explore these recipes" :recipes="recipes" />
 </template>
 
 <script>
