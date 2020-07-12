@@ -246,10 +246,10 @@ export default {
       },
       password: {
         required,
-        length: (p) => minLength(5)(p) && maxLength(10)(p),
+        length: (u) => minLength(5)(u) && maxLength(10)(u),
         format,
-        hasNumber: (p) => /^(?=.*[0-9])/.test(p),
-        specialChar: (p) => /^(?=.[!@#$%^&])/.test(p),
+        hasNumber: (u) => /\d/.test(u),
+        specialChar: (u) => /(?=.[!@#$%^&])/.test(u),
       },
       confirmedPassword: {
         required,

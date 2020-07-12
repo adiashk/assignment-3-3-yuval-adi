@@ -1,17 +1,14 @@
 <template>
   <div>
-    <FamilyRecipePreviewList
-      title="Profile"
-      class="RandomRecipes center"
-    />
+    <ProfileView title="Profile" class="Profile center" />
   </div>
 </template>
 
 <script>
-import FamilyRecipePreviewList from "../components/FamilyRecipePreviewList";
+import ProfileView from "../components/ProfileView";
 export default {
   components: {
-    FamilyRecipePreviewList,
+    ProfileView,
   },
   data() {
     return {};
