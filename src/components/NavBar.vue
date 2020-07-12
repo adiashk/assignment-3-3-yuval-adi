@@ -6,7 +6,8 @@
     <router-link tag="b-navbar-brand" :to="{ name: 'search' }"
       >Search</router-link
     >|
-
+    <router-link tag="b-navbar-brand" :to="{ name: 'About' }">About</router-link
+    >|
     <span v-if="!$root.store.username">
       <router-link tag="b-navbar-brand" :to="{ name: 'register' }"
         >Register</router-link
