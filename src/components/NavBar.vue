@@ -1,8 +1,6 @@
 <template>
   <b-navbar type="dark" variant="info">
-    <router-link tag="b-navbar-brand" :to="{ name: 'main' }"
-      >Vue Recipes</router-link
-    >|
+    <router-link tag="b-navbar-brand" :to="{ name: 'main' }">Home</router-link>|
     <router-link tag="b-navbar-brand" :to="{ name: 'search' }"
       >Search</router-link
     >|

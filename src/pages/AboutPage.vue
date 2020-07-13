@@ -8,7 +8,7 @@
     </header>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container " style="color:black;">
       <div class="row">
         <!-- Team Member 1 -->
         <div class="col-xl-6 col-md-10 mb-8">
@@ -30,7 +30,7 @@
         <div class="col-xl-6 col-md-10 mb-8">
           <div class="card border-0 shadow">
             <img
-              src="https://source.unsplash.com/9UVmlIb0wJU/500x350"
+              src="https://res.cloudinary.com/dqjzqwhv4/image/upload/v1594635281/%D7%AA%D7%9E%D7%95%D7%A0%D7%94_%D7%98%D7%95%D7%91%D7%94_go5qe2.png"
               class="card-img-top"
             />
             <div class="card-body text-center">
@@ -47,40 +47,47 @@
       <div>
         <b-card-group deck>
           <b-card
-            title="ASS 1 Yuval"
-            img-src="https://picsum.photos/300/300/?image=41"
+            title="Assignment 1 Yuval"
+            img-src="https://res.cloudinary.com/dqjzqwhv4/image/upload/v1594635383/pacman_fqx3cp.png"
             img-alt="Image"
             img-top
           >
             <b-card-text>
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
+              Personal website about yuval's grandmother - Ale Akerman.
+              <a
+                href="https://sise-web-development-environments.github.io/312475528/"
+                >Visit Adi first assignment!</a
+              >
             </b-card-text>
           </b-card>
 
           <b-card
-            title="Ass 1 Adi"
-            img-src="https://picsum.photos/300/300/?image=41"
+            title="Assignment 1 Adi"
+            img-src="https://res.cloudinary.com/dqjzqwhv4/image/upload/v1594636597/ale_ty951k.png"
             img-alt="Image"
             img-top
           >
             <b-card-text>
-              This card has supporting text below as a natural lead-in to
-              additional content.
+              Personal website about adi's aunt - Ale Akerman.
+              <a
+                href="https://sise-web-development-environments.github.io/206345241/"
+                >Visit Adi first assignment!</a
+              >
             </b-card-text>
           </b-card>
 
           <b-card
-            title="ASS 2 "
-            img-src="https://picsum.photos/300/300/?image=41"
+            title="Assignment 2 pacman game"
+            img-src="https://res.cloudinary.com/dqjzqwhv4/image/upload/v1594635383/pacman_fqx3cp.png"
             img-alt="Image"
             img-top
           >
             <b-card-text>
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This card has even longer content
-              than the first to show that equal height action.
+              Pacman game.
+              <a
+                href="https://sise-web-development-environments.github.io/206345241_312475528/"
+                >Visit our game!</a
+              >
             </b-card-text>
           </b-card>
         </b-card-group>

@@ -63,7 +63,7 @@
         >
           <img
             class="img-logo"
-            src="https://storage.needpix.com/thumbs/heart-plus.jpg"
+            src="https://i.ya-webdesign.com/images/person-svg-heart-clipart-9.png"
             title="add to favorites recipes"
           />
         </div>
@@ -76,7 +76,7 @@
         >
           <img
             class="img-logo"
-            src="https://i.ya-webdesign.com/images/person-svg-heart-clipart-9.png"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT_A8lf5dhhsYzwcNApd35v0WiuM7q5fxBSaQ&usqp=CAU"
             title="delete from favorites recipes"
           />
         </div>

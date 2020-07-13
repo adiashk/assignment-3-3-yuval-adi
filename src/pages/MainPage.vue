@@ -2,7 +2,7 @@
   <b-container class="container">
     <b-row>
       <b-col>
-        <h1 class="title text-center">Main Page</h1>
+        <h1 class="title text-center"></h1>
       </b-col>
     </b-row>
     <b-row>
@@ -22,20 +22,6 @@
         ></LastWatchedRecipePreviewList>
       </b-col>
     </b-row>
-    <!--           :class="{
-            RandomRecipes: true,
-            blur: !$root.store.username,
-            center: true,
-          }"
-          disabled -->
-    <!--     <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-    {{ !$root.store.username }} -->
-
-    <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div>-->
     <b-button href="#" variant="primary" v-on:click="refresh()">
       refresh
     </b-button>

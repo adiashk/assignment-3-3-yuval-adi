@@ -14,7 +14,7 @@
         {{ $root.store.username }}: <button @click="Logout">Logout</button>|
       </span>
     </div> -->
-    <router-view />
+    <router-view style="color:white;" />
   </div>
 </template>
 
@@ -60,5 +60,17 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+body {
+  /* The image used */
+  background-image: url("https://i.pinimg.com/564x/e8/ac/58/e8ac582129673cb7253bf885fd4552ad.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>
