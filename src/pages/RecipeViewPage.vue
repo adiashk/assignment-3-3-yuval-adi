@@ -23,7 +23,7 @@
                   <h1 class="card-title mb-0" style="color:black;">
                     {{ recipe.title }}
                   </h1>
-                  <div class="card-text text-black-50">
+                  <div class="card-text text-black-50" >
                     <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
                     <div>Likes: {{ recipe.aggregateLikes }} likes</div>
                     <div>servings: {{ recipe.servings }}</div>

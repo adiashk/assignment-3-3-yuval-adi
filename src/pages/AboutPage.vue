@@ -16,7 +16,7 @@
         <div class="col-xl-6 col-md-10 mb-8">
           <div class="card border-0 shadow">
             <img
-              src="https://source.unsplash.com/TMgQMXoglsM/500x350"
+              src="https://res.cloudinary.com/dqjzqwhv4/image/upload/v1594657362/yuval_ciob07.jpg"
               class="card-img-top"
             />
             <div class="card-body text-center">
@@ -50,27 +50,29 @@
         <b-card-group deck>
           <b-card
             title="Assignment 1 Yuval"
-            img-src="https://res.cloudinary.com/dqjzqwhv4/image/upload/v1594635383/pacman_fqx3cp.png"
+            img-src="https://res.cloudinary.com/dqjzqwhv4/image/upload/v1594658017/Ruby_sjun1f.png"
             img-alt="Image"
             img-top
           >
             <b-card-text>
-              Personal website about yuval's grandmother - Ale Akerman.
+              Personal website about yuval's grandmother - Ruby.
+              <br />
               <a
-                href="https://sise-web-development-environments.github.io/312475528/"
-                >Visit Adi first assignment!</a
+                href="https://sise-web-development-environments.github.io/assignment1-yuvalmoryosef/"
+                >Visit Yuval first assignment!</a
               >
             </b-card-text>
           </b-card>
 
           <b-card
             title="Assignment 1 Adi"
-            img-src="https://res.cloudinary.com/dqjzqwhv4/image/upload/v1594636597/ale_ty951k.png"
+            img-src="https://res.cloudinary.com/dqjzqwhv4/image/upload/v1594658192/ale_kybx3i.png"
             img-alt="Image"
             img-top
           >
             <b-card-text>
-              Personal website about adi's aunt - Ale Akerman.
+              Personal website about adi's aunt - Ale.
+              <br />
               <a
                 href="https://sise-web-development-environments.github.io/206345241/"
                 >Visit Adi first assignment!</a
@@ -86,6 +88,8 @@
           >
             <b-card-text>
               Pacman game.
+              <br />
+
               <a
                 href="https://sise-web-development-environments.github.io/206345241_312475528/"
                 >Visit our game!</a
