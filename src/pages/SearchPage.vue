@@ -8,16 +8,18 @@
         <b-col cols="12" md="auto">
           <!-- <h1 class="title">Search Page</h1> -->
           <br />
-          <b-form @submit.prevent="search">
+          <b-form id="form" @submit.prevent="search">
             <b-container class="bv-row1">
+              <br />
               <b-row>
                 <!-- <b-col col lg="2"></b-col> -->
                 <b-col cols="12" md="auto">
                   <input
+                    class="query"
                     v-model="searchQuery"
-                    class="mr-sm-2"
                     type="text"
                     placeholder="Enter search query"
+                    id="q"
                     required
                   />
                   <b-button variant="outline-success" type="submit"
@@ -55,12 +57,15 @@
                     <b-dropdown-item @click="sortByHighPopularity"
                       >Sort by high popularity</b-dropdown-item
                     >
+                    <div class="dropdown-divider"></div>
                     <b-dropdown-item @click="sortByLowPopularity"
                       >Sort by low popularity</b-dropdown-item
                     >
+                    <div class="dropdown-divider"></div>
                     <b-dropdown-item @click="sortByHighPreparationgTime"
                       >Sort by high preparation time</b-dropdown-item
                     >
+                    <div class="dropdown-divider"></div>
                     <b-dropdown-item @click="sortByLowPreparationgTime">
                       Sort by low preparation time</b-dropdown-item
                     >
@@ -85,23 +90,28 @@
                     variant="outline-success"
                     dropleft
                   >
-                    <b-form-group id="cuisine" label="cuisine:">
+                    <!-- <b-form-group id="cuisine" label="cuisine:"> -->
+                    <b-form-group id="cuisine">
                       <b-form-select
                         id="cuisine_id"
                         :options="optionsCuisine"
                         v-model="selectedCuisine"
                       ></b-form-select>
                     </b-form-group>
+                    <div class="dropdown-divider"></div>
                     <!-- <br /> -->
-                    <b-form-group id="diet" label="diet:">
+                    <!-- <b-form-group id="diet" label="diet:"> -->
+                    <b-form-group id="diet">
                       <b-form-select
                         id="diet_id"
                         :options="optionsDiet"
                         v-model="selectedDiet"
                       ></b-form-select>
+                      <div class="dropdown-divider"></div>
                       <!-- <br /> -->
                     </b-form-group>
-                    <b-form-group id="Intolerance" label="Intolerance:">
+                    <!-- <b-form-group id="Intolerance" label="Intolerance:"> -->
+                    <b-form-group id="Intolerance">
                       <b-form-select
                         id="Intolerance_id"
                         :options="optionsIntolerance"
@@ -157,7 +167,8 @@ export default {
       filter: "",
       selectedCuisine: null,
       optionsCuisine: [
-        { value: null, text: "Please select a cuisine" },
+        //{ value: null, text: "Please select a cuisine" },
+        { value: null, text: "cuisine" },
         { value: "African", text: "African" },
         { value: "American", text: "American" },
         { value: "British", text: "British" },
@@ -187,7 +198,8 @@ export default {
       ],
       selectedDiet: null,
       optionsDiet: [
-        { value: null, text: "Please select a diet" },
+        //{ value: null, text: "Please select a diet" },
+        { value: null, text: "Diet" },
         { value: "Gluten Free", text: "Gluten Free" },
         { value: "Ketogenic", text: "Ketogenic" },
         { value: "Vegetarian", text: "Vegetarian" },
@@ -201,7 +213,8 @@ export default {
       ],
       selectedIntolerance: null,
       optionsIntolerance: [
-        { value: null, text: "Please select an intolerance" },
+        // { value: null, text: "Please select an intolerance" },
+        { value: null, text: "Intolerance" },
         { value: "Dairy", text: "Dairy" },
         { value: "Egg", text: "Egg" },
         { value: "Gluten", text: "Gluten" },
@@ -335,8 +348,10 @@ export default {
 </script>
 
 <style>
-.bv-row2 {
-  background: rgb(255, 255, 255);
-  color: #000;
+#q {
+  background-color: rgb(25, 201, 39) !important;
+}
+#form {
+  background-color: rgba(17, 80, 43, 0.548) !important;
 }
 </style>
