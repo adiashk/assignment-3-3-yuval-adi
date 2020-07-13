@@ -49,7 +49,7 @@
                 <b-col cols="12" md="auto">
                   <b-dropdown
                     id="sort-dropdown"
-                    text="  RECOMMEDED  "
+                    text="  SORT  "
                     v-model="sort"
                     variant="outline-success"
                     dropright
@@ -85,7 +85,7 @@
                 <b-col cols="12" md="auto">
                   <b-dropdown
                     id="filter-dropdown"
-                    text="    FILTER    "
+                    text="    FILTERS   "
                     v-model="filter"
                     variant="outline-success"
                     dropleft
@@ -349,9 +349,9 @@ export default {
 
 <style>
 #q {
-  background-color: rgb(25, 201, 39) !important;
+  background-color: white !important;
 }
 #form {
-  background-color: rgba(17, 80, 43, 0.548) !important;
+  background-color: rgba(255, 255, 255, 0.24) !important;
 }
 </style>

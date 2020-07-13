@@ -85,4 +85,9 @@ export default {
 .container {
   max-width: 400px;
 }
+
+.Personal-dropdown {
+  font: outline;
+  color: white;
+}
 </style>
