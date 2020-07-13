@@ -1,69 +1,141 @@
 <template>
   <div class="container">
-    <h1 class="title">Search Page</h1>
-    <input
-      v-model="searchQuery"
-      type="text"
-      placeholder="Enter search query"
-      required
-    />
+    <b-container class="bv">
+      <!-- full page -->
+      <b-row class="justify-content-md-center">
+        <b-col></b-col>
 
-    <b-form @submit.prevent="search">
-      <b-form-group id="number" label="Number of results:">
-        <b-form-radio-group
-          id="number_id"
-          :options="optionsNum"
-          v-model="selectedNum"
-          name="radio-inline"
-        ></b-form-radio-group>
-      </b-form-group>
+        <b-col cols="12" md="auto">
+          <!-- <h1 class="title">Search Page</h1> -->
+          <br />
+          <b-form @submit.prevent="search">
+            <b-container class="bv-row1">
+              <b-row>
+                <!-- <b-col col lg="2"></b-col> -->
+                <b-col cols="12" md="auto">
+                  <input
+                    v-model="searchQuery"
+                    class="mr-sm-2"
+                    type="text"
+                    placeholder="Enter search query"
+                    required
+                  />
+                  <b-button variant="outline-success" type="submit"
+                    >search</b-button
+                  >
+                </b-col>
+                <br />
+                <br />
+                <br />
+                <!-- <b-col></b-col> -->
+                <b-col>
+                  <b-form-group id="number" label="Number of results:">
+                    <b-form-radio-group
+                      id="number_id"
+                      :options="optionsNum"
+                      v-model="selectedNum"
+                      name="radio-inline"
+                    ></b-form-radio-group>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+            </b-container>
 
-      <b-form-group id="cuisine" label="cuisine:">
-        <b-form-select
-          id="cuisine_id"
-          :options="optionsCuisine"
-          v-model="selectedCuisine"
-        ></b-form-select>
-      </b-form-group>
-      <!-- <br /> -->
-      <b-form-group id="diet" label="diet:">
-        <b-form-select
-          id="diet_id"
-          :options="optionsDiet"
-          v-model="selectedDiet"
-        ></b-form-select>
-        <!-- <br /> -->
-      </b-form-group>
-      <b-form-group id="Intolerance" label="Intolerance:">
-        <b-form-select
-          id="Intolerance_id"
-          :options="optionsIntolerance"
-          v-model="selectedIntolerance"
-        ></b-form-select>
-      </b-form-group>
+            <b-container class="bv-row2">
+              <b-row>
+                <!-- drop down sorts -->
+                <b-col cols="12" md="auto">
+                  <b-dropdown
+                    id="sort-dropdown"
+                    text="  RECOMMEDED  "
+                    v-model="sort"
+                    variant="outline-success"
+                    dropright
+                  >
+                    <b-dropdown-item @click="sortByHighPopularity"
+                      >Sort by high popularity</b-dropdown-item
+                    >
+                    <b-dropdown-item @click="sortByLowPopularity"
+                      >Sort by low popularity</b-dropdown-item
+                    >
+                    <b-dropdown-item @click="sortByHighPreparationgTime"
+                      >Sort by high preparation time</b-dropdown-item
+                    >
+                    <b-dropdown-item @click="sortByLowPreparationgTime">
+                      Sort by low preparation time</b-dropdown-item
+                    >
+                  </b-dropdown>
+                  <br />
+                  <br />
+                  <!-- <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br /> -->
+                </b-col>
+                <!-- end of drop down sorts -->
+                <b-col col lg="2"></b-col>
+                <b-col col lg="2"></b-col>
+                <!-- drop down filter -->
+                <b-col cols="12" md="auto">
+                  <b-dropdown
+                    id="filter-dropdown"
+                    text="    FILTER    "
+                    v-model="filter"
+                    variant="outline-success"
+                    dropleft
+                  >
+                    <b-form-group id="cuisine" label="cuisine:">
+                      <b-form-select
+                        id="cuisine_id"
+                        :options="optionsCuisine"
+                        v-model="selectedCuisine"
+                      ></b-form-select>
+                    </b-form-group>
+                    <!-- <br /> -->
+                    <b-form-group id="diet" label="diet:">
+                      <b-form-select
+                        id="diet_id"
+                        :options="optionsDiet"
+                        v-model="selectedDiet"
+                      ></b-form-select>
+                      <!-- <br /> -->
+                    </b-form-group>
+                    <b-form-group id="Intolerance" label="Intolerance:">
+                      <b-form-select
+                        id="Intolerance_id"
+                        :options="optionsIntolerance"
+                        v-model="selectedIntolerance"
+                      ></b-form-select>
+                    </b-form-group>
+                  </b-dropdown>
+                  <br />
+                  <br />
+                  <!-- <br />
+                  <br />
+                  <br /> -->
+                </b-col>
+                <!-- end of drop dow filter -->
+              </b-row>
+            </b-container>
+          </b-form>
+          <RecipePreviewList
+            title="Searched Recipes result"
+            :recipes="recipes"
+          />
 
-      <b-button type="submit">search</b-button>
-    </b-form>
-
-    <button @click="sortByHighPopularity">Sort by high popularity</button>
-    <button @click="sortByLowPopularity">Sort by low popularity</button>
-    <button @click="sortByHighPreparationgTime">
-      Sort by high preparation time
-    </button>
-    <button @click="sortByLowPreparationgTime">
-      Sort by low preparation time
-    </button>
-
-    <RecipePreviewList title="Searched Recipes result" :recipes="recipes" />
-
-    <b-alert
-      v-model="showDismissibleAlert"
-      variant="warning"
-      dismissible
-      style="text-align:center"
-    >
-      Sorry, No recipes found.
-    </b-alert>
+          <b-alert
+            v-model="showDismissibleAlert"
+            variant="warning"
+            dismissible
+            style="text-align:center"
+          >
+            Sorry, No recipes found.
+          </b-alert>
+        </b-col>
+        <b-col></b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -82,6 +154,7 @@ export default {
     return {
       name: "Search",
       showDismissibleAlert: false,
+      filter: "",
       selectedCuisine: null,
       optionsCuisine: [
         { value: null, text: "Please select a cuisine" },
@@ -156,6 +229,13 @@ export default {
       form: {
         submitError: undefined,
       },
+      sort: "",
+      // sort: [
+      //   "sortByHighPopularity",
+      //   "sortByLowPopularity",
+      //   "sortByHighPreparationgTime",
+      //   "sortByLowPreparationgTime",
+      // ],
     };
   },
   mounted() {
@@ -238,6 +318,7 @@ export default {
     },
 
     sortByLowPreparationgTime() {
+      console.log("in sort");
       this.recipes.sort(function(a, b) {
         return parseFloat(a.readyInMinutes) - parseFloat(b.readyInMinutes);
       });
@@ -253,4 +334,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.bv-row2 {
+  background: rgb(255, 255, 255);
+  color: #000;
+}
+</style>
