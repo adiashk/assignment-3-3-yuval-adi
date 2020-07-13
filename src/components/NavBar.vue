@@ -1,5 +1,5 @@
 <template>
-  <b-navbar type="dark" variant="info">
+  <b-navbar type="dark" variant="dark">
     <router-link tag="b-navbar-brand" :to="{ name: 'main' }">Home</router-link>|
     <router-link tag="b-navbar-brand" :to="{ name: 'search' }"
       >Search</router-link

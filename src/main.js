@@ -13,7 +13,9 @@ const router = new VueRouter({
 });
 
 Vue.use(VueCookies);
-
+import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
+Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 import { FormRadioPlugin } from "bootstrap-vue";
 Vue.use(FormRadioPlugin);
 import { BFormSelect } from "bootstrap-vue";

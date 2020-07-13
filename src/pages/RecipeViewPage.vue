@@ -32,7 +32,7 @@
                       <img
                         class="img-logo"
                         v-if="recipe.vegetarian"
-                        src="https://res.cloudinary.com/ddmhcwaul/image/upload/v1594558862/Vegetarian-2-512_jzy0lc.png"
+                        src="https://res.cloudinary.com/dqjzqwhv4/image/upload/v1594650915/veg_gbe3hi.png"
                         title="vegetarian"
                       />
                       <img
