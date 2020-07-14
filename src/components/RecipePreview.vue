@@ -16,30 +16,26 @@
               <b-card-text>
                 <li>{{ recipe.readyInMinutes }} minutes</li>
                 <li>{{ recipe.aggregateLikes }} likes</li>
+                <img
+                  class="img-logo"
+                  v-if="recipe.vegetarian"
+                  src="https://res.cloudinary.com/dqjzqwhv4/image/upload/v1594650915/veg_gbe3hi.png"
+                  title="vegetarian"
+                />
+                <img
+                  class="img-logo"
+                  v-if="recipe.vegan"
+                  src="https://www.gobrazilwines.com/wp-content/uploads/2019/01/GoBrazilWine_Vegan_Symbol-295x300.png"
+                  title="vegan"
+                />
+                <img
+                  class="img-logo"
+                  v-if="recipe.glutenFree"
+                  src="https://i.ya-webdesign.com/images/gluten-free-png-4.png"
+                  title="gluten free"
+                />
               </b-card-text>
             </b-card-body>
-          </b-col>
-        </b-row>
-        <b-row no-gutters>
-          <b-col md="6">
-            <img
-              class="img-logo"
-              v-if="recipe.vegetarian"
-              src="https://res.cloudinary.com/dqjzqwhv4/image/upload/v1594650915/veg_gbe3hi.png"
-              title="vegetarian"
-            />
-            <img
-              class="img-logo"
-              v-if="recipe.vegan"
-              src="https://www.gobrazilwines.com/wp-content/uploads/2019/01/GoBrazilWine_Vegan_Symbol-295x300.png"
-              title="vegan"
-            />
-            <img
-              class="img-logo"
-              v-if="recipe.glutenFree"
-              src="https://i.ya-webdesign.com/images/gluten-free-png-4.png"
-              title="gluten free"
-            />
           </b-col>
         </b-row>
       </b-card-body>

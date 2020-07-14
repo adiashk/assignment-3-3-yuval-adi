@@ -1,27 +1,29 @@
 <template>
-  <b-card no-body class="overflow-hidden" style="max-width: 540px;">
-    <!-- <router-link
+  <b-container>
+    <b-card no-body class="overflow-hidden" style="max-width: 540px;">
+      <!-- <router-link
       :to="{ name: 'Profile', params: { username: username } }"
       class="profile-view"
     > -->
-    <b-card-body>
-      <b-row no-gutters>
-        <b-col md="12">
-          <b-card-img :src="userInfo.image" class="rounded-0"></b-card-img>
-        </b-col>
-        <b-col md="12">
-          <b-card-body :user="this.$root.store.username">
-            <b-card-text> User: {{ this.$root.store.username }} </b-card-text>
-            <b-card-text> First name: {{ userInfo.firstName }} </b-card-text>
-            <b-card-text> Last Name: {{ userInfo.lastName }} </b-card-text>
-            <b-card-text> email: {{ userInfo.email }} </b-card-text>
-            <b-card-text> Country: {{ userInfo.country }} </b-card-text>
-          </b-card-body>
-        </b-col>
-      </b-row>
-    </b-card-body>
-    <!-- </router-link> -->
-  </b-card>
+      <b-card-body>
+        <b-row no-gutters>
+          <b-col md="12">
+            <b-card-img :src="userInfo.image" class="rounded-0"></b-card-img>
+          </b-col>
+          <b-col md="12" style="color:black;">
+            <b-card-body :user="this.$root.store.username">
+              <b-card-text> User: {{ this.$root.store.username }} </b-card-text>
+              <b-card-text> First name: {{ userInfo.firstName }} </b-card-text>
+              <b-card-text> Last Name: {{ userInfo.lastName }} </b-card-text>
+              <b-card-text> email: {{ userInfo.email }} </b-card-text>
+              <b-card-text> Country: {{ userInfo.country }} </b-card-text>
+            </b-card-body>
+          </b-col>
+        </b-row>
+      </b-card-body>
+      <!-- </router-link> -->
+    </b-card>
+  </b-container>
 </template>
 
 <script>

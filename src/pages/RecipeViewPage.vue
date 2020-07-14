@@ -2,16 +2,6 @@
   <div>
     <div v-if="recipe">
       <b-row>
-        <!--         <b-col>
-          <div class="text-xl-left">
-            <h1>Ingredients:</h1>
-            <ul>
-              <li v-for="(r, index) in recipe.ingridients" :key="index">
-                {{ r }}
-              </li>
-            </ul>
-          </div>
-        </b-col> -->
         <b-col>
           <div class="row">
             <!-- Team Member 1 -->
@@ -23,7 +13,7 @@
                   <h1 class="card-title mb-0" style="color:black;">
                     {{ recipe.title }}
                   </h1>
-                  <div class="card-text text-black-50" >
+                  <div class="card-text text-black-50">
                     <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
                     <div>Likes: {{ recipe.aggregateLikes }} likes</div>
                     <div>servings: {{ recipe.servings }}</div>

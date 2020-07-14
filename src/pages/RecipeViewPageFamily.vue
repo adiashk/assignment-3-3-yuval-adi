@@ -1,50 +1,78 @@
 <template>
-  <div class="container">
+  <div>
     <div v-if="recipe">
-      <div class="recipe-header mt-3 mb-4">
-        <h1>{{ recipe.title }}</h1>
-        <img :src="recipe.image" class="center" />
-      </div>
-      <div class="recipe-body">
-        <div class="wrapper">
-          <div class="wrapped">
-            <div class="mb-3">
-              <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.aggregateLikes }} likes</div>
-            </div>
+      <b-row>
+        <b-col>
+          <div class="row">
+            <!-- Team Member 1 -->
+            <b-card-group deck>
+              <!-- <div class="col-xl-6 col-md-10 mb-8"> -->
+              <div class="c">
+                <img :src="recipe.image" class="card-img-top" />
+                <div class="card-body text-center">
+                  <h1 class="card-title mb-0" style="color:black;">
+                    {{ recipe.title }}
+                  </h1>
+                  <div class="card-text text-black-50">
+                    <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
+                    <div>servings: {{ recipe.servings }}</div>
 
-            Ingredients:
-            <ul v-for="(r, index) in recipe.ingredients" :key="index">
-              {{
-                index + 1
-              }}
-              :
-              {{
-                r.ingredient_name
-              }}
-              -
-              {{
-                r.amount
-              }}
-              {{
-                r.unit
-              }}
+                    <b-col>
+                      <img
+                        class="img-logo"
+                        v-if="recipe.vegetarian"
+                        src="https://res.cloudinary.com/dqjzqwhv4/image/upload/v1594650915/veg_gbe3hi.png"
+                        title="vegetarian"
+                      />
+                      <img
+                        class="img-logo"
+                        v-if="recipe.vegan"
+                        src="https://www.gobrazilwines.com/wp-content/uploads/2019/01/GoBrazilWine_Vegan_Symbol-295x300.png"
+                        title="vegan"
+                      />
+                      <img
+                        class="img-logo"
+                        v-if="recipe.glutenFree"
+                        src="https://i.ya-webdesign.com/images/gluten-free-png-4.png"
+                        title="gluten free"
+                      />
+                    </b-col>
+                  </div>
+                </div>
+              </div>
+              <!--                 </div>-->
+            </b-card-group>
+          </div>
+        </b-col>
+        <b-col>
+          <div class="text-xl-left">
+            <h1>Ingredients:</h1>
+            <ul>
+              <li v-for="(r, index) in recipe.ingredients" :key="index">
+                {{ r.ingredient_name }}
+                -
+                {{ r.amount }}
+                {{ r.unit }}
+              </li>
             </ul>
           </div>
-          <div class="wrapped">
-            Instructions:
+          <div class="text-left">
+            <h1>Instructions:</h1>
             <ol>
               <li v-for="(s, index) in recipe.instructions" :key="index">
                 {{ recipe.instructions[index].step_description }}
               </li>
             </ol>
           </div>
-        </div>
+        </b-col>
+      </b-row>
+
+      <div class="recipe-body">
+        <div class="wrapper"></div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -66,7 +94,7 @@ export default {
           }
         );
 
-        //console.log(response);
+        console.log(response);
         // console.log("response.status: ", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
@@ -81,6 +109,10 @@ export default {
         readyInMinutes,
         image,
         title,
+        vegetarian,
+        vegan,
+        glutenFree,
+        servings,
       } = response.data.data;
 
       let _recipe = {
@@ -90,6 +122,10 @@ export default {
         readyInMinutes,
         image,
         title,
+        vegetarian,
+        vegan,
+        glutenFree,
+        servings,
       };
 
       this.recipe = _recipe;
@@ -155,4 +191,19 @@ export default {
 /* .recipe-header{
 
 } */
+.img-logo {
+  bottom: 8px;
+  left: 0px;
+  width: 12%;
+}
+.img-logo:hover {
+  transform: scale(
+    1.5
+  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+.c {
+  background-color: rgba(255, 255, 255, 0.815);
+  /*   background-color: white;
+ */
+}
 </style>
