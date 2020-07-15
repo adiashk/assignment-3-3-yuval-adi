@@ -1,29 +1,34 @@
 <template>
-  <b-container>
-    <b-card no-body class="overflow-hidden" style="max-width: 540px;">
-      <!-- <router-link
-      :to="{ name: 'Profile', params: { username: username } }"
-      class="profile-view"
-    > -->
-      <b-card-body>
-        <b-row no-gutters>
-          <b-col md="12">
-            <b-card-img :src="userInfo.image" class="rounded-0"></b-card-img>
-          </b-col>
-          <b-col md="12" style="color:black;">
-            <b-card-body :user="this.$root.store.username">
-              <b-card-text> User: {{ this.$root.store.username }} </b-card-text>
-              <b-card-text> First name: {{ userInfo.firstName }} </b-card-text>
-              <b-card-text> Last Name: {{ userInfo.lastName }} </b-card-text>
-              <b-card-text> email: {{ userInfo.email }} </b-card-text>
-              <b-card-text> Country: {{ userInfo.country }} </b-card-text>
-            </b-card-body>
-          </b-col>
-        </b-row>
-      </b-card-body>
-      <!-- </router-link> -->
-    </b-card>
-  </b-container>
+  <div class="container " style="color:black;">
+    <div class="row">
+      <div class="card mb-3" id="p" style="max-width: 1080px;">
+        <div class="row no-gutters">
+          <div class="col-md-6">
+            <b-card-img
+              :src="userInfo.image"
+              class="rounded-1"
+              alt="user image"
+            ></b-card-img>
+            <div class="col-md-1"></div>
+          </div>
+
+          <div class="col-md-6" style="color:black;" id="q">
+            <div class="card-body">
+              <dt class="card-title">
+                User: {{ this.$root.store.username }}
+              </dt>
+              <dt class="card-text">First name: {{ userInfo.firstName }}</dt>
+              <dt class="card-text">Last name: {{ userInfo.lastName }}</dt>
+              <dt class="card-text">email: {{ userInfo.email }}</dt>
+              <dt class="card-text">Country: {{ userInfo.country }}</dt>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  -->
 </template>
 
 <script>
@@ -69,3 +74,12 @@ export default {
   },
 };
 </script>
+<style>
+#q {
+  background-color: rgba(255, 255, 255, 0) !important;
+}
+
+#p {
+  background-color: rgba(255, 255, 255, 0.24) !important;
+}
+</style>

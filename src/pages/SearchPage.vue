@@ -22,9 +22,7 @@
                     id="q"
                     required
                   />
-                  <b-button variant="outline-success" type="submit"
-                    >search</b-button
-                  >
+                  <b-button variant="success" type="submit">search</b-button>
                 </b-col>
                 <br />
                 <br />
@@ -43,7 +41,7 @@
               </b-row>
             </b-container>
 
-            <b-container class="bv-row2">
+            <b-container class="bv-row2" id="dropdown">
               <b-row>
                 <!-- drop down sorts -->
                 <b-col cols="12" md="auto">
@@ -51,7 +49,8 @@
                     id="sort-dropdown"
                     text="  SORT  "
                     v-model="sort"
-                    variant="outline-success"
+                    variant="success"
+                    aria-expanded="false"
                     dropright
                   >
                     <b-dropdown-item @click="sortByHighPopularity"
@@ -81,13 +80,14 @@
                 <!-- end of drop down sorts -->
                 <b-col col lg="2"></b-col>
                 <b-col col lg="2"></b-col>
+                <b-col col lg="2"></b-col>
                 <!-- drop down filter -->
                 <b-col cols="12" md="auto">
                   <b-dropdown
                     id="filter-dropdown"
                     text="    FILTERS   "
                     v-model="filter"
-                    variant="outline-success"
+                    variant="success"
                     dropleft
                   >
                     <!-- <b-form-group id="cuisine" label="cuisine:"> -->
@@ -353,5 +353,9 @@ export default {
 }
 #form {
   background-color: rgba(255, 255, 255, 0.24) !important;
+}
+
+#filter-dropdown.bg-transparent #sort-dropdown.bg-transparent {
+  background-color: green !important;
 }
 </style>
