@@ -52,6 +52,7 @@
                     variant="success"
                     aria-expanded="false"
                     dropright
+                    v-if="recipes"
                   >
                     <b-dropdown-item @click="sortByHighPopularity"
                       >Sort by high popularity</b-dropdown-item
