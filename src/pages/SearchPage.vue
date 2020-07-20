@@ -46,15 +46,13 @@
                 <!-- drop down sorts -->
                 <b-col cols="12" md="auto">
                   <b-dropdown
-                    @click="enableSort"
-                    class="sort"
-                    id="sortDropdown"
+                    id="sort-dropdown"
                     text="  SORT  "
                     v-model="sort"
                     variant="success"
                     aria-expanded="false"
                     dropright
-                    disabled
+                    v-if="recipes"
                   >
                     <b-dropdown-item @click="sortByHighPopularity"
                       >Sort by high popularity</b-dropdown-item
@@ -155,9 +153,7 @@
 <script>
 //button @click="sortByMakingTime">Sort by making time</button>
 //  <button @click="sortByPopularity">Sort by popularity</button>
-
 import RecipePreviewList from "../components/RecipePreviewList";
-
 export default {
   components: {
     //RecipePreview,
@@ -241,7 +237,6 @@ export default {
       searchQuery: "",
       recipesLoaded: false,
       clickedSearch: false,
-
       form: {
         submitError: undefined,
       },
@@ -261,18 +256,12 @@ export default {
     async searchQ() {
       try {
         let query = {};
-
         if (this.searchQuery != "") query.query = this.searchQuery;
-
         if (this.selectedCuisine != null) query.cuisine = this.selectedCuisine;
-
         if (this.selectedDiet != null) query.diet = this.selectedDiet;
-
         if (this.selectedIntolerance != null)
           query.intolerances = this.selectedIntolerance.value;
-
         query.number = this.selectedNum;
-
         const response = await this.axios.get(
           this.$root.store.base_url + "/recipes/search",
           {
@@ -285,24 +274,18 @@ export default {
             },
           }
         );
-
         this.recipes = []; //empty stuck
-
         if (response.status !== 200) this.$router.replace("/NotFound");
         else {
           console.log("in search");
           this.showDismissibleAlert = false;
-
           const recipes = response.data.data;
-
           this.recipes.push(...recipes);
-          this.enable();
         }
         if (this.$root.store.username != "") {
           console.log("last");
           this.$root.store.lastSearch = this.recipes;
         }
-
         this.recipesLoaded = true;
       } catch (error) {
         console.log(error);
@@ -316,7 +299,6 @@ export default {
       this.form.submitError = undefined;
       this.searchQ();
     },
-
     sortByHighPopularity() {
       this.recipes.sort(function(b, a) {
         return parseFloat(a.aggregateLikes) - parseFloat(b.aggregateLikes);
@@ -327,20 +309,17 @@ export default {
         return parseFloat(a.aggregateLikes) - parseFloat(b.aggregateLikes);
       });
     },
-
     sortByHighPreparationgTime() {
       this.recipes.sort(function(b, a) {
         return parseFloat(a.readyInMinutes) - parseFloat(b.readyInMinutes);
       });
     },
-
     sortByLowPreparationgTime() {
       console.log("in sort");
       this.recipes.sort(function(a, b) {
         return parseFloat(a.readyInMinutes) - parseFloat(b.readyInMinutes);
       });
     },
-
     updateLastSearch() {
       if (this.$root.store.username != "") {
         this.recipes = this.$root.store.lastSearch;
@@ -358,7 +337,6 @@ export default {
 #form {
   background-color: rgba(255, 255, 255, 0.24) !important;
 }
-
 #filter-dropdown.bg-transparent #sort-dropdown.bg-transparent {
   background-color: green !important;
 }
