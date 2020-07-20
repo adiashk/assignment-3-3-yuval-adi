@@ -46,12 +46,15 @@
                 <!-- drop down sorts -->
                 <b-col cols="12" md="auto">
                   <b-dropdown
-                    id="sort-dropdown"
+                    @click="enableSort"
+                    class="sort"
+                    id="sortDropdown"
                     text="  SORT  "
                     v-model="sort"
                     variant="success"
                     aria-expanded="false"
                     dropright
+                    disabled
                   >
                     <b-dropdown-item @click="sortByHighPopularity"
                       >Sort by high popularity</b-dropdown-item
@@ -293,6 +296,7 @@ export default {
           const recipes = response.data.data;
 
           this.recipes.push(...recipes);
+          this.enable();
         }
         if (this.$root.store.username != "") {
           console.log("last");
